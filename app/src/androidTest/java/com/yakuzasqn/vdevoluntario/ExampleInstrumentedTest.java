@@ -1,4 +1,4 @@
-package com.yakuzasqn.vdevoluntariado;
+package com.yakuzasqn.vdevoluntario;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.yakuzasqn.vdevoluntariado", appContext.getPackageName());
+        assertEquals("com.yakuzasqn.vdevoluntario", appContext.getPackageName());
     }
 }

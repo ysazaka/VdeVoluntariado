@@ -1,4 +1,4 @@
-package com.yakuzasqn.vdevoluntariado;
+package com.yakuzasqn.vdevoluntario;
 
 import org.junit.Test;
 

@@ -1,11 +1,8 @@
-package com.yakuzasqn.vdevoluntariado.view.activity;
+package com.yakuzasqn.vdevoluntario.view.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.orhanobut.hawk.Hawk;
-import com.yakuzasqn.vdevoluntariado.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -16,14 +13,15 @@ public class SplashActivity extends AppCompatActivity {
 //        Hawk.init(this).build();
 //        User userSession = Hawk.get(LoginActivity.USER_SESSION);
 //
-//        Intent intent;
+        Intent intent;
 //
 //        if (userSession != null) {
+            intent = new Intent(this, LoginActivity.class);
 //            intent = new Intent(this, MainActivity.class);
 //        } else {
 //            intent = new Intent(this, InicioActivity.class);
 //        }
-//        startActivity(intent);
-//        finish();
+        startActivity(intent);
+        finish();
     }
 }

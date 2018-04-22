@@ -1,15 +1,15 @@
-package com.yakuzasqn.vdevoluntariado.view.activity;
+package com.yakuzasqn.vdevoluntario.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.yakuzasqn.vdevoluntariado.R;
+import com.yakuzasqn.vdevoluntario.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
     }
 }

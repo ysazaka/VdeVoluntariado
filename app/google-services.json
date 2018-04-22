@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "454609927579",
+    "firebase_url": "https://vdevoluntario-d1bre.firebaseio.com",
+    "project_id": "vdevoluntario-d1bre",
+    "storage_bucket": "vdevoluntario-d1bre.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454609927579:android:2a58247c827f2909",
+        "android_client_info": {
+          "package_name": "com.yakuzasqn.vdevoluntario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454609927579-462umdelk0rmfoaktcufcr7u54sj5sfr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yakuzasqn.vdevoluntario",
+            "certificate_hash": "fe1e5f443936b6aada5306e2bfbceeb1cd48ac41"
+          }
+        },
+        {
+          "client_id": "454609927579-67ak2dgdf03kgkhpunp1kaha8h3i6ar2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIz39cip2kY-rhigAO1VWehRP7c5j3cbM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454609927579-67ak2dgdf03kgkhpunp1kaha8h3i6ar2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

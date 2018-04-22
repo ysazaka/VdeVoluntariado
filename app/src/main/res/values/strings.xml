@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">V de Voluntariado</string>
+    <string name="app_name">V de Voluntario</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Senha</string>
+    <string name="tv_forgot_password"><u>Esqueci a senha</u></string>
+    <string name="btn_signin">Entrar</string>
+    <string name="tv_signup">Não tem conta? <u>Cadastre-se</u></string>
+    <string name="ok">OK</string>
+    <string name="toast_loginInvalidate">Email ou senha inválidos!</string>
+    <string name="toast_loginValidate">Login realizado com sucesso!</string>
 </resources>
