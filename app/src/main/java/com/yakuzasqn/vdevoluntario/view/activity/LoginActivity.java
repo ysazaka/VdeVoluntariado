@@ -20,8 +20,6 @@ import com.yakuzasqn.vdevoluntario.util.Utils;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-
     private EditText etEmail, etPassword;
     private TextView tvForgotPassword, tvCreateAccount;
     private Button btnSignIn;
@@ -51,10 +49,24 @@ public class LoginActivity extends AppCompatActivity {
                 validateLogin(user);
             }
         });
+
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNextActivity(FORGOT_PASSWORD_ACTIVITY);
+            }
+        });
+
+        tvCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNextActivity(CREATE_ACCOUNT_ACTIVITY);
+            }
+        });
     }
 
     private void validateLogin(User user){
-        mAuth = FirebaseConfig.getFirebaseAuth();
+        FirebaseAuth mAuth = FirebaseConfig.getFirebaseAuth();
         mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

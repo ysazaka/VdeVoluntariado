@@ -1,11 +1,22 @@
 <resources>
     <string name="app_name">V de Voluntario</string>
-    <string name="hint_email">E-mail</string>
-    <string name="hint_password">Senha</string>
     <string name="tv_forgot_password"><u>Esqueci a senha</u></string>
     <string name="btn_signin">Entrar</string>
     <string name="tv_signup">Não tem conta? <u>Cadastre-se</u></string>
     <string name="ok">OK</string>
     <string name="toast_loginInvalidate">Email ou senha inválidos!</string>
     <string name="toast_loginValidate">Login realizado com sucesso!</string>
+    <string name="btn_sign_up">Cadastrar</string>
+    <string name="dialog_diffPassword">A senha difere da senha de confirmação</string>
+    <string name="hint_name">Nome completo</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Senha</string>
+    <string name="hint_passwordConfirm">Confirme sua senha</string>
+    <string name="msg_signedUp">Cadastrado com sucesso!</string>
+    <string name="toast_errorCreateUser">Erro ao gravar usuário!</string>
+    <string name="txt_getNewPassword">Informe seu e-mail para que seja enviado a maneira de redefinir a senha de acesso.</string>
+    <string name="btn_send">Enviar</string>
+    <string name="toast_fillEmail">Preencha o campo de e-mail.</string>
+    <string name="dialog_verifyEmail">Enviado com sucesso! Verifique seu e-mail para recuperar sua senha</string>
+    <string name="snackbar_sendEmailFail">Falha ao enviar e-mail</string>
 </resources>

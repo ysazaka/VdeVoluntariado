@@ -1,5 +1,7 @@
 package com.yakuzasqn.vdevoluntario.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Date;
 
 /**
@@ -7,11 +9,10 @@ import java.util.Date;
  */
 
 public class User{
+    private String key;
     private String name;
     private String email;
     private String password;
-    private Date birthday;
-    private String gender;
 
     public User(){}
 
@@ -20,12 +21,11 @@ public class User{
         this.password = password;
     }
 
-    public User(String name, String email, String password, Date birthday, String gender) {
+    public User(String key, String name, String email, String password) {
+        this.key = key;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.birthday = birthday;
-        this.gender = gender;
     }
 
     public String getName() {
@@ -44,27 +44,21 @@ public class User{
         this.email = email;
     }
 
+    @Exclude
     public String getPassword() {
         return password;
     }
 
+    @Exclude
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getKey() {
+        return key;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setKey(String key) {
+        this.key = key;
     }
 }

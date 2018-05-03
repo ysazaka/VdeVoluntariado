@@ -16,6 +16,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.MotionEvent;
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yakuzasqn.vdevoluntario.R;
@@ -428,7 +430,20 @@ public class Utils {
         dialog.show();
     }
 
+    public static void showSnackbarMessage(int message, Activity activity, View view){
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(activity.getResources().getColor(R.color.colorWoodsmoke));
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
+        snackbar.show();
+    }
+
     public static void showToast(int message, Activity activity){
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showToast(String message, Activity activity){
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 

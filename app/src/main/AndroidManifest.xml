@@ -35,9 +35,18 @@
             android:name=".view.activity.LoginActivity"
             android:noHistory="true"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.ForgotPasswordActivity"
+            android:noHistory="true"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.CreateAccountActivity"
+            android:noHistory="true"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".view.activity.ConfirmationActivity"
+            android:noHistory="true"
+            />
         <activity android:name=".view.activity.MainActivity" />
-        <activity android:name=".view.activity.ForgotPasswordActivity" />
-        <activity android:name=".view.activity.CreateAccountActivity"></activity>
     </application>
 
 </manifest>
