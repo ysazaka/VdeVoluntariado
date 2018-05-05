@@ -1,5 +1,6 @@
 package com.yakuzasqn.vdevoluntario.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
+import com.yakuzasqn.vdevoluntario.util.SupportPermissions;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -63,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
                 openNextActivity(CREATE_ACCOUNT_ACTIVITY);
             }
         });
+
+        verifyPermissions();
     }
 
     private void validateLogin(User user){
@@ -95,5 +99,13 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
         startActivity(intent);
+    }
+
+    private void verifyPermissions(){
+        /* Permissões */
+        SupportPermissions permissions = new SupportPermissions();
+        permissions.requestForPermission(LoginActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 }

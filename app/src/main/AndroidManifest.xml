@@ -43,10 +43,13 @@
             android:name=".view.activity.CreateAccountActivity"
             android:noHistory="true"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".view.activity.ConfirmationActivity"
-            android:noHistory="true"
-            />
+        <activity
+            android:name=".view.activity.ConfirmationActivity"
+            android:noHistory="true" />
         <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.UserDataActivity" />
+        <activity android:name=".view.activity.CreatePostActivity" />
+        <activity android:name=".view.activity.ChatActivity"></activity>
     </application>
 
 </manifest>

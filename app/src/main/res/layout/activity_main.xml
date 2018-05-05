@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    >
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite">
 
-</LinearLayout>
+    <!--Include a toolbar-->
+    <include
+        android:id="@+id/toolbar_main"
+        layout="@layout/toolbar_logo"
+        />
+
+    <!--Container of fragments-->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/bottomBar"
+        android:layout_below="@+id/toolbar_main"
+        />
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:bb_behavior="iconsOnly"
+        android:layout_alignParentBottom="true"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        android:background="@color/colorWhite"
+        app:itemIconTint="@color/colorMountainMist"
+        app:bb_activeTabColor="@color/colorPrimary"
+        />
+</RelativeLayout>

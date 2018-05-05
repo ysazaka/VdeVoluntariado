@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/b_posts"
+        icon="@mipmap/ic_post"
+        title=""
+        />
+    <tab
+        id="@+id/b_message_list"
+        icon="@mipmap/ic_chat"
+        title=""
+        />
+    <tab
+        id="@+id/b_config"
+        icon="@mipmap/ic_config"
+        title=""
+        />
+    <tab
+        id="@+id/b_institute"
+        icon="@mipmap/ic_institute"
+        title=""
+        />
+</tabs>

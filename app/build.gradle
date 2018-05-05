@@ -75,6 +75,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'org.apache.commons:commons-lang3:3.7'
+    implementation project(path: ':chatkit')
 
     /* Firebase dependencies */
     implementation 'com.google.firebase:firebase-core:15.0.0'

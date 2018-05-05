@@ -19,4 +19,14 @@
     <string name="toast_fillEmail">Preencha o campo de e-mail.</string>
     <string name="dialog_verifyEmail">Enviado com sucesso! Verifique seu e-mail para recuperar sua senha</string>
     <string name="snackbar_sendEmailFail">Falha ao enviar e-mail</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_contribute">Contribuir</string>
+    <string name="tab_oferecer">Oferecer</string>
+    <string name="example_volName">Wesley Chan</string>
+    <string name="example_postTitle">Campanha do Agasalho</string>
+    <string name="example_postDescription">Que tal doar suas roupas boas e fazer alguém feliz com a sua doação?</string>
+    <string name="example_msg">Olá Ted! Gostaria de contribuir com a sua causa, já que blablabla</string>
+    <string name="btn_createOffer">Criar oferta voluntária</string>
+    <string name="dialog_chooseProfilePhoto">Escolha a sua foto de perfil</string>
 </resources>

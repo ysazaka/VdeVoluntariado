@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/colorPrimary"
+    android:weightSum="12"
+    >
+
+    <!-- Icone a esquerda -->
+    <ImageButton
+        android:id="@+id/icone_fechar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@android:color/transparent"
+        android:visibility="invisible"
+        android:paddingBottom="60dp"
+        />
+
+    <!-- Elemento central -->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:src="@mipmap/ic_vvol2"
+        />
+
+    <!-- Icone a direita -->
+    <LinearLayout
+        android:id="@+id/elemento_direita"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        />
+
+</LinearLayout>
