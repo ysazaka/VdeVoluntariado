@@ -68,6 +68,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
 
     private String name, email, password, passwordConfirm;
     private CircleImageView profilePhoto;
+    private Button btnSignUp;
 
     private Validator validator;
 
@@ -90,7 +91,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
         etEmail = findViewById(R.id.ca_email);
         etPassword = findViewById(R.id.ca_password);
         etPasswordConfirm = findViewById(R.id.ca_password_confirm);
-        Button btnSignUp = findViewById(R.id.ca_sign_up);
+        btnSignUp = findViewById(R.id.ca_sign_up);
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -102,25 +103,16 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
             }
         });
 
-        // Verificação para ver se o usuário escolheu uma foto de perfil
-        Drawable icCamera = getResources().getDrawable(R.drawable.ic_action_camera);
-        Bitmap bitPhoto = ((BitmapDrawable) profilePhoto.getDrawable()).getBitmap();
-        Bitmap bitPhotoDefault = ((BitmapDrawable) icCamera).getBitmap();
-
-        if (bitPhoto != bitPhotoDefault){
-            btnSignUp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    name = etName.getText().toString();
-                    email = etEmail.getText().toString();
-                    password = etPassword.getText().toString();
-                    passwordConfirm = etPasswordConfirm.getText().toString();
-                    validator.validate();
-                }
-            });
-        } else {
-            Utils.showDialogCustomMessage(R.string.dialog_chooseProfilePhoto, CreateAccountActivity.this);
-        }
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                name = etName.getText().toString();
+                email = etEmail.getText().toString();
+                password = etPassword.getText().toString();
+                passwordConfirm = etPasswordConfirm.getText().toString();
+                validator.validate();
+            }
+        });
     }
 
     // Corrigir comportamento da seta de voltar - Toolbar customizada
@@ -142,19 +134,21 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
 
     @Override
     public void onValidationSucceeded() {
-        if (password.equals(passwordConfirm)){
-            user = new User();
+        // Verificação para ver se o usuário escolheu uma foto de perfil
+        Drawable icCamera = getResources().getDrawable(R.drawable.ic_action_camera);
+        Bitmap bitPhoto = ((BitmapDrawable) profilePhoto.getDrawable()).getBitmap();
+        Bitmap bitPhotoDefault = ((BitmapDrawable) icCamera).getBitmap();
 
-            uploadProfilePhoto();
-            user.setName(name);
-            user.setEmail(email);
-            user.setPassword(password);
+        if (bitPhoto != bitPhotoDefault){
+            if (password.equals(passwordConfirm)){
+                user = new User();
 
-            Hawk.put(USER_SESSION, user);
-
-            createUserAuth();
-        } else
-            Utils.showDialogCustomMessage(R.string.dialog_diffPassword, CreateAccountActivity.this);
+                uploadProfilePhoto();
+            } else
+                Utils.showDialogCustomMessage(R.string.dialog_diffPassword, CreateAccountActivity.this);
+        } else {
+            Utils.showDialogCustomMessage(R.string.dialog_chooseProfilePhoto, CreateAccountActivity.this);
+        }
     }
 
     @Override
@@ -198,6 +192,13 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 user.setPicture(downloadUrl.toString());
+                user.setName(name);
+                user.setEmail(email);
+                user.setPassword(password);
+
+                Hawk.put(USER_SESSION, user);
+
+                createUserAuth();
             }
         });
 

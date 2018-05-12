@@ -16,6 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.User;
+import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
 import com.yakuzasqn.vdevoluntario.util.SupportPermissions;
 import com.yakuzasqn.vdevoluntario.util.Utils;
@@ -25,10 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private TextView tvForgotPassword, tvCreateAccount;
     private Button btnSignIn;
-
-    private final int MAIN_ACTIVITY = 1;
-    private final int FORGOT_PASSWORD_ACTIVITY = 2;
-    private final int CREATE_ACCOUNT_ACTIVITY = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +52,14 @@ public class LoginActivity extends AppCompatActivity {
         tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openNextActivity(FORGOT_PASSWORD_ACTIVITY);
+                openNextActivity(Constants.FORGOT_PASSWORD_ACTIVITY);
             }
         });
 
         tvCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openNextActivity(CREATE_ACCOUNT_ACTIVITY);
+                openNextActivity(Constants.CREATE_ACCOUNT_ACTIVITY);
             }
         });
 
@@ -75,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    openNextActivity(MAIN_ACTIVITY);
+                    openNextActivity(Constants.MAIN_ACTIVITY);
                     Utils.showToast(R.string.toast_loginValidate, LoginActivity.this);
                 } else {
                     Utils.showToast(R.string.toast_loginInvalidate, LoginActivity.this);
@@ -88,13 +85,13 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = null;
 
         switch (activityName){
-            case MAIN_ACTIVITY:
+            case Constants.MAIN_ACTIVITY:
                 intent = new Intent(LoginActivity.this, MainActivity.class);
                 break;
-            case FORGOT_PASSWORD_ACTIVITY:
+            case Constants.FORGOT_PASSWORD_ACTIVITY:
                 intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 break;
-            case CREATE_ACCOUNT_ACTIVITY:
+            case Constants.CREATE_ACCOUNT_ACTIVITY:
                 intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
                 break;
         }

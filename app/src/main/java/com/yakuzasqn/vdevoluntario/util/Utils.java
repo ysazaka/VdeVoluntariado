@@ -16,6 +16,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
@@ -28,7 +29,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
 import com.yakuzasqn.vdevoluntario.R;
+import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -447,6 +452,12 @@ public class Utils {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 
+    public static String getCurrentTimestamp(){
+        Long timestampLong = System.currentTimeMillis()/1000;
+
+        return timestampLong.toString();
+    }
+
     /* Methods used to get the device name, useful to deal with specific devices */
     public static String getDeviceName() {
         String manufacturer = Build.MANUFACTURER;
@@ -470,4 +481,21 @@ public class Utils {
         }
     }
     /**/
+
+    /* Firebase methods */
+    private static void deleteFileFromStorage(String uri){
+        StorageReference photoRef = FirebaseConfig.getFirebaseStorage().getReferenceFromUrl(uri);
+
+        photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // File deleted successfully
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Uh-oh, an error occurred!
+            }
+        });
+    }
 }

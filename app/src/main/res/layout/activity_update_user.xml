@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/up_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:id="@+id/up_et_new_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_newName"
+            android:layout_marginTop="25dp"
+            />
+
+        <EditText
+            android:id="@+id/up_et_actual_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_actualPassword"
+            android:layout_marginTop="25dp"
+            />
+
+        <EditText
+            android:id="@+id/up_et_new_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_newPassword"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/up_et_confirm_new_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_confirmPassword"
+            android:layout_marginTop="5dp"
+            />
+
+        <Button
+            android:id="@+id/up_btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_update"
+            style="@style/ButtonStyle"
+            android:layout_marginTop="50dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

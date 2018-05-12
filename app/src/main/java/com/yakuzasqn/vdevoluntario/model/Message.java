@@ -55,7 +55,7 @@ public class Message implements IMessage, MessageContentType.Image{
 
     @Override
     public IUser getUser() {
-        return new User(userID);
+        return new User(String.valueOf(userID));
     }
 
     public long getUserID() {

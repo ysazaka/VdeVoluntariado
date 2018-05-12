@@ -44,7 +44,9 @@
                 android:layout_weight="8.5"
                 android:layout_gravity="center_vertical"
                 android:textSize="18sp"
-                android:text="Wesley Chan"
+                android:text="@string/example_volunteer"
+                android:minLines="1"
+                android:maxLines="1"
                 android:layout_marginStart="15dp"
                 />
 

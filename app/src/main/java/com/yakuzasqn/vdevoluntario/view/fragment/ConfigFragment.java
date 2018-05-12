@@ -50,8 +50,11 @@ public class ConfigFragment extends Fragment {
 
         User user = Hawk.get(Constants.USER_SESSION);
 
-        userPhoto.setImageURI(Uri.parse(user.getPicture()));
-        userName.setText(user.getName());
+        if (user != null){
+            if (user.getPicture() != null)
+                userPhoto.setImageURI(Uri.parse(user.getPicture()));
+            userName.setText(user.getName());
+        }
 
         llVolunteerData.setOnClickListener(new View.OnClickListener() {
             @Override

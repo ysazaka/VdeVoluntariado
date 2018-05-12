@@ -41,7 +41,6 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.CreateAccountActivity"
-            android:noHistory="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.ConfirmationActivity"
@@ -49,7 +48,14 @@
         <activity android:name=".view.activity.MainActivity" />
         <activity android:name=".view.activity.UserDataActivity" />
         <activity android:name=".view.activity.CreatePostActivity" />
-        <activity android:name=".view.activity.ChatActivity"></activity>
+        <activity android:name=".view.activity.ChatActivity" />
+        <activity android:name=".view.activity.NewInstituteActivity" />
+        <activity android:name=".view.activity.CreateInstituteActivity" />
+        <activity android:name=".view.activity.UpdateUserActivity" />
+        <activity android:name=".view.activity.InstituteDataActivity" />
+        <activity android:name=".view.activity.CheckInstituteActivity" />
+        <activity android:name=".view.activity.CheckChatActivity" />
+        <activity android:name=".view.activity.ManageParticipantsActivity"></activity>
     </application>
 
 </manifest>

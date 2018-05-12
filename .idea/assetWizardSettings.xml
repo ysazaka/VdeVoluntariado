@@ -20,8 +20,8 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\yoshi\Desktop\Zero\Study\TCC\Imagens\Wesley Chan.png" />
-                                      <entry key="outputName" value="vol_photo" />
+                                      <entry key="imageAsset" value="C:\Users\yoshi\Desktop\Zero\Study\TCC\Imagens\camera.png" />
+                                      <entry key="outputName" value="ic_camera" />
                                     </map>
                                   </option>
                                 </PersistentState>

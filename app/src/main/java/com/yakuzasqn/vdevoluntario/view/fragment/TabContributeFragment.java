@@ -1,6 +1,5 @@
 package com.yakuzasqn.vdevoluntario.view.fragment;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.RecyclerItemClickListener;
 import com.yakuzasqn.vdevoluntario.view.activity.ChatActivity;
-import com.yakuzasqn.vdevoluntario.view.activity.LoginActivity;
 
 import java.util.List;
 
