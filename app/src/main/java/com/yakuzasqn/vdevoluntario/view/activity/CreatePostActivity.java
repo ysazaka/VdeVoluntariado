@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +35,7 @@ import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
-import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
+import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 
 import java.io.ByteArrayOutputStream;
@@ -66,7 +67,7 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
         setContentView(R.layout.activity_create_post);
 
         Toolbar toolbar = findViewById(R.id.cp_toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,6 +97,17 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
                 validator.validate();
             }
         });
+    }
+
+    // Corrigir comportamento da seta de voltar - Toolbar customizada
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -131,9 +143,10 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
     }
 
     private void uploadPostPhoto(){
+        dialog = ProgressDialog.show(CreatePostActivity.this, "", "Fazendo upload da foto, aguarde...", true);
         String timestamp = Utils.getCurrentTimestamp();
 
-        StorageReference mStoreRef = FirebaseConfig.getFirebaseStorageReference()
+        StorageReference mStoreRef = FirebaseUtils.getFirebaseStorageReference()
                 .child("userProfilePhoto/post_" + timestamp + ".jpg");
 
         postPhoto.setDrawingCacheEnabled(true);
@@ -155,6 +168,7 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                dialog.dismiss();
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 post.setUrlImage(downloadUrl.toString());
                 post.setTitle(title);
@@ -168,7 +182,7 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
 
     private void createPostDatabase(Post post){
         try{
-            DatabaseReference mRef = FirebaseConfig.getDatabaseReference().child("post");
+            DatabaseReference mRef = FirebaseUtils.getBaseRef().child("posts");
 
             String key = mRef.push().getKey();
             post.setId(key);
@@ -190,7 +204,7 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
                             if( dialog != null ) dialog.dismiss();
                         }
                     },
-                    5000
+                    2500
             );
         } catch(Exception e){
             Utils.showToast(getString(R.string.toast_errorCreateUser), CreatePostActivity.this);

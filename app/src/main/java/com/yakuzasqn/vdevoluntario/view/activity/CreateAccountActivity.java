@@ -38,7 +38,7 @@ import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
-import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
+import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 
 import java.io.ByteArrayOutputStream;
@@ -81,7 +81,8 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
 
         Toolbar toolbar = findViewById(R.id.ca_toolbar);
         toolbar.setTitle("Cadastro de usuário");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -168,7 +169,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
     }
 
     private void uploadProfilePhoto(){
-        StorageReference mStoreRef = FirebaseConfig.getFirebaseStorageReference()
+        StorageReference mStoreRef = FirebaseUtils.getFirebaseStorageReference()
                 .child("userProfilePhoto/" + email + ".jpg");
 
         profilePhoto.setDrawingCacheEnabled(true);
@@ -209,11 +210,13 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
         if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == Activity.RESULT_OK){
             Uri selectedImage = data.getData();
             GlideApp.with(getApplicationContext()).load(selectedImage).centerCrop().into(profilePhoto);
+        } else if (requestCode == Constants.REQUEST_CODE_CREATE_ACCOUNT){
+            finish();
         }
     }
 
     private void createUserAuth(){
-        final FirebaseAuth mAuth = FirebaseConfig.getFirebaseAuth();
+        final FirebaseAuth mAuth = FirebaseUtils.getFirebaseAuth();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(CreateAccountActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -247,7 +250,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
 
     private void createUserDatabase(User user){
         try{
-            DatabaseReference mRef = FirebaseConfig.getDatabaseReference().child("users");
+            DatabaseReference mRef = FirebaseUtils.getBaseRef().child("users");
 
             // Firebase gera uma chave automática e ordena por inserção no banco de dados
             String key = mRef.push().getKey();
@@ -255,7 +258,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
             mRef.child(key).setValue(user);
 
             Intent intent = new Intent(CreateAccountActivity.this, ConfirmationActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, Constants.REQUEST_CODE_CREATE_ACCOUNT);
         } catch(Exception e){
             Utils.showToast(getString(R.string.toast_errorCreateUser), CreateAccountActivity.this);
             e.printStackTrace();

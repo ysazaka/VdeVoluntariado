@@ -33,7 +33,6 @@
         </activity>
         <activity
             android:name=".view.activity.LoginActivity"
-            android:noHistory="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.ForgotPasswordActivity"
@@ -46,16 +45,28 @@
             android:name=".view.activity.ConfirmationActivity"
             android:noHistory="true" />
         <activity android:name=".view.activity.MainActivity" />
-        <activity android:name=".view.activity.UserDataActivity" />
-        <activity android:name=".view.activity.CreatePostActivity" />
-        <activity android:name=".view.activity.ChatActivity" />
-        <activity android:name=".view.activity.NewInstituteActivity" />
+        <activity
+            android:name=".view.activity.UserDataActivity"
+            android:noHistory="true"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.CreatePostActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.ChatActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.NewInstituteActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".view.activity.CreateInstituteActivity" />
-        <activity android:name=".view.activity.UpdateUserActivity" />
+        <activity
+            android:name=".view.activity.UpdateUserActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".view.activity.InstituteDataActivity" />
         <activity android:name=".view.activity.CheckInstituteActivity" />
         <activity android:name=".view.activity.CheckChatActivity" />
-        <activity android:name=".view.activity.ManageParticipantsActivity"></activity>
+        <activity android:name=".view.activity.ManageParticipantsActivity" />
+        <activity android:name=".view.activity.ChooseParticipantsActivity"/>
     </application>
 
 </manifest>

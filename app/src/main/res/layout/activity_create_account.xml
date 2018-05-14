@@ -9,6 +9,8 @@
         android:id="@+id/ca_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorWhite"
         />
 
     <ScrollView
@@ -44,6 +46,8 @@
                 android:layout_marginTop="25dp"
                 android:hint="@string/hint_name"
                 android:inputType="textCapWords"
+                android:minLines="1"
+                android:maxLines="1"
                 />
 
             <EditText
@@ -52,6 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:minLines="1"
+                android:maxLines="1"
                 />
 
             <android.support.design.widget.TextInputLayout
@@ -67,6 +74,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword"
+                    android:minLines="1"
+                    android:maxLines="1"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -84,6 +93,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_passwordConfirm"
                     android:inputType="textPassword"
+                    android:minLines="1"
+                    android:maxLines="1"
                     />
 
             </android.support.design.widget.TextInputLayout>

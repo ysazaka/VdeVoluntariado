@@ -20,9 +20,10 @@
     <!-- Elemento central -->
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:layout_weight="8"
         android:src="@mipmap/ic_vvol2"
+        android:layout_marginTop="-20dp"
         />
 
     <!-- Icone a direita -->

@@ -1,5 +1,7 @@
 package com.yakuzasqn.vdevoluntario.model;
 
+import java.util.List;
+
 public class Group {
     private String id;
     private String name;
@@ -8,11 +10,14 @@ public class Group {
     private String phone;
     private String category;
     private String picture;
-    private String[] pictures;
+    private List<String> pictures;
+
+    // Ids dos usuários pertencentes ao grupo
+    private List<String> participantsId;
 
     public Group() {}
 
-    public Group(String id, String name, String adress, String site, String phone, String category, String picture) {
+    public Group(String id, String name, String adress, String site, String phone, String category, String picture, List<String> participantsId) {
         this.id = id;
         this.name = name;
         this.adress = adress;
@@ -20,9 +25,10 @@ public class Group {
         this.phone = phone;
         this.category = category;
         this.picture = picture;
+        this.participantsId = participantsId;
     }
 
-    public Group(String id, String name, String adress, String site, String phone, String category, String[] pictures) {
+    public Group(String id, String name, String adress, String site, String phone, String category, List<String> pictures, List<String> participantsId) {
         this.id = id;
         this.name = name;
         this.adress = adress;
@@ -30,6 +36,7 @@ public class Group {
         this.phone = phone;
         this.category = category;
         this.pictures = pictures;
+        this.participantsId = participantsId;
     }
 
 
@@ -89,11 +96,20 @@ public class Group {
         this.picture = picture;
     }
 
-    public String[] getPictures() {
+    public void setPictures(List<String> pictures) {
+        this.pictures = pictures;
+    }
+
+    public List<String> getPictures() {
         return pictures;
     }
 
-    public void setPictures(String[] pictures) {
-        this.pictures = pictures;
+    public List<String> getParticipantsId() {
+        return participantsId;
     }
+
+    public void setParticipantsId(List<String> participantsId) {
+        this.participantsId = participantsId;
+    }
+
 }

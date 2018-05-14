@@ -1,7 +1,6 @@
 package com.yakuzasqn.vdevoluntario.view.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 import com.glide.slider.library.svg.GlideApp;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -36,7 +34,7 @@ import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.support.Constants;
-import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
+import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 
 import java.io.ByteArrayOutputStream;
@@ -52,8 +50,6 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
     @NotEmpty(message = "Campo obrigatório")
     private EditText niEtName;
 
-    @Order(2)
-    @NotEmpty(message = "Campo obrigatório")
     private Spinner niSpinCategory;
 
     private CircleImageView niCivPhoto;
@@ -72,9 +68,10 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_institute);
 
-        Toolbar toolbar = findViewById(R.id.ca_toolbar);
+        Toolbar toolbar = findViewById(R.id.ni_toolbar);
         toolbar.setTitle("Nova instituição");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -177,9 +174,13 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
         Bitmap bitPhotoDefault = ((BitmapDrawable) icCamera).getBitmap();
 
         if (bitPhoto != bitPhotoDefault){
-            group = new Group();
+            if (!category.equals("Category*")){
+                group = new Group();
 
-            uploadInstituteProfilePhoto();
+                uploadInstituteProfilePhoto();
+            } else {
+                Utils.showDialogCustomMessage(R.string.dialog_chooseCategory, NewInstituteActivity.this);
+            }
         } else {
             Utils.showDialogCustomMessage(R.string.dialog_chooseProfilePhotoInstitute, NewInstituteActivity.this);
         }
@@ -204,7 +205,7 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
     private void uploadInstituteProfilePhoto(){
         String timestamp = Utils.getCurrentTimestamp();
 
-        StorageReference mStoreRef = FirebaseConfig.getFirebaseStorageReference()
+        StorageReference mStoreRef = FirebaseUtils.getFirebaseStorageReference()
                 .child("instituteProfilePhoto/" + name + "_" + timestamp + ".jpg");
 
         niCivPhoto.setDrawingCacheEnabled(true);

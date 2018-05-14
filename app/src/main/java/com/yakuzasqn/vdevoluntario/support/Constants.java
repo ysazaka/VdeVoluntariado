@@ -3,15 +3,24 @@ package com.yakuzasqn.vdevoluntario.support;
 public class Constants {
     public static final String USER_SESSION = "USER_SESSION";
     public static final String GROUP = "GROUP";
+    public static final String CHOSEN_GROUP = "CHOSEN_GROUP";
     public static final String CHOSEN_POST_USER = "CHOSEN_POST_USER";
+    public static final String CHOSEN_PARTICIPANTS = "CHOSEN_PARTICIPANTS";
+    public static final String CHOSEN_PARTICIPANTS_ID = "CHOSEN_PARTICIPANTS_ID";
 
     public static final byte VOLUNTEER = 1;
     public static final byte INSTITUTE = 2;
 
-    public static final int RESULT_LOGIN_CONFIRMED = 66;
+    public static final int RESULT_LOGIN_CONFIRMED = 11;
+    public static final int RESULT_UPDATED = 22;
+
     public static final int REQUEST_CODE_GALLERY = 1111;
     public static final int REQUEST_CODE_CONTRIBUTE = 2222;
     public static final int REQUEST_CODE_OFFER = 3333;
+    public static final int REQUEST_CODE_CREATE_INSTITUTE = 4444;
+    public static final int REQUEST_CODE_CREATE_ACCOUNT = 5555;
+    public static final int REQUEST_CODE_MAIN = 6666;
+    public static final int REQUEST_CODE_USER_DATA = 7777;
 
     /* Login Activity */
     public static final int MAIN_ACTIVITY = 1;

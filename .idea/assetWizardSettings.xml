@@ -16,12 +16,37 @@
                             <entry key="launcherLegacy">
                               <value>
                                 <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="clipArt">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="ffffff" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="clipartAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\yoshi\Desktop\Zero\Study\TCC\Imagens\camera.png" />
-                                      <entry key="outputName" value="ic_camera" />
+                                      <entry key="imageAsset" value="C:\Users\yoshi\Desktop\Zero\Study\TCC\Imagens\Add circle icon.png" />
+                                      <entry key="outputName" value="ic_arrow_white" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -57,7 +82,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_right_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -67,8 +92,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="8f8e94" />
-                            <entry key="outputName" value="ic_arrow_right" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_arrow_back_white" />
                             <entry key="sourceFile" value="C:\Users\yoshi" />
                           </map>
                         </option>

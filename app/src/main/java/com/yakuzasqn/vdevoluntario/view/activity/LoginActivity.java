@@ -1,6 +1,7 @@
 package com.yakuzasqn.vdevoluntario.view.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
-import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
+import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.util.SupportPermissions;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 
@@ -26,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private TextView tvForgotPassword, tvCreateAccount;
     private Button btnSignIn;
+
+    private User user;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = new User();
+                dialog = ProgressDialog.show(LoginActivity.this, "", "Fazendo login, aguarde...", true);
+
+                user = new User();
                 user.setEmail(etEmail.getText().toString());
                 user.setPassword(etPassword.getText().toString());
 
@@ -67,14 +75,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateLogin(User user){
-        FirebaseAuth mAuth = FirebaseConfig.getFirebaseAuth();
+        FirebaseAuth mAuth = FirebaseUtils.getFirebaseAuth();
         mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    dialog.dismiss();
                     openNextActivity(Constants.MAIN_ACTIVITY);
                     Utils.showToast(R.string.toast_loginValidate, LoginActivity.this);
                 } else {
+                    dialog.dismiss();
                     Utils.showToast(R.string.toast_loginInvalidate, LoginActivity.this);
                 }
             }
@@ -86,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
         switch (activityName){
             case Constants.MAIN_ACTIVITY:
+                Hawk.put(Constants.USER_SESSION ,user);
                 intent = new Intent(LoginActivity.this, MainActivity.class);
                 break;
             case Constants.FORGOT_PASSWORD_ACTIVITY:

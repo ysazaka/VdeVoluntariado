@@ -12,7 +12,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.yakuzasqn.vdevoluntario.R;
-import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
+import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!etEmail.getText().equals("")){
-                    FirebaseAuth mAuth = FirebaseConfig.getFirebaseAuth();
+                    FirebaseAuth mAuth = FirebaseUtils.getFirebaseAuth();
 
                     String emailToRecover = etEmail.getText().toString();
 
@@ -40,7 +40,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                Utils.showDialogCustomMessage(R.string.dialog_verifyEmail, ForgotPasswordActivity.this);
+                                Utils.showSnackbarMessage(R.string.dialog_verifyEmail, ForgotPasswordActivity.this, llForgotPassword);
                             } else {
                                 Utils.showSnackbarMessage(R.string.snackbar_sendEmailFail, ForgotPasswordActivity.this, llForgotPassword);
                             }

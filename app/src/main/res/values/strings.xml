@@ -2,7 +2,7 @@
     <string name="app_name">V de Voluntario</string>
     <string name="tv_forgot_password"><u>Esqueci a senha</u></string>
     <string name="btn_signin">Entrar</string>
-    <string name="tv_signup">Não tem conta? <u>Cadastre-se</u></string>
+    <string name="tv_signup">Não tem conta? Cadastre-se</string>
     <string name="ok">OK</string>
     <string name="toast_loginInvalidate">Email ou senha inválidos!</string>
     <string name="toast_loginValidate">Login realizado com sucesso!</string>
@@ -14,10 +14,11 @@
     <string name="hint_passwordConfirm">Confirme sua senha</string>
     <string name="msg_signedUp">Cadastrado com sucesso!</string>
     <string name="toast_errorCreateUser">Erro ao gravar usuário!</string>
-    <string name="txt_getNewPassword">Informe seu e-mail para que seja enviado a maneira de redefinir a senha de acesso.</string>
+    <string name="toast_errorCreateGroup">Erro ao gravar grupo!</string>
+    <string name="txt_getNewPassword">Informe seu e-mail para que lhe seja enviado um link de recuperação de senha.</string>
     <string name="btn_send">Enviar</string>
     <string name="toast_fillEmail">Preencha o campo de e-mail.</string>
-    <string name="dialog_verifyEmail">Enviado com sucesso! Verifique seu e-mail para recuperar sua senha</string>
+    <string name="dialog_verifyEmail">E-mail enviado com sucesso!</string>
     <string name="snackbar_sendEmailFail">Falha ao enviar e-mail</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -29,7 +30,8 @@
     <string name="example_msg">Olá Ted! Gostaria de contribuir com a sua causa, já que blablabla</string>
     <string name="btn_createOffer">Criar oferta voluntária</string>
     <string name="dialog_chooseProfilePhoto">Escolha a sua foto de perfil</string>
-    <string name="dialog_chooseProfilePhotoInstitute">Escolha a foto de perfil da instituição</string>
+    <string name="dialog_chooseProfilePhotoInstitute">Escolha a foto de perfil</string>
+    <string name="dialog_chooseCategory">Escolha uma categoria</string>
     <string name="new_institute">Nova instituição</string>
     <string name="example_institute">Wong Fu Productions</string>
     <string name="example_volunteer">Wesley Chan</string>
@@ -48,6 +50,7 @@
     <string name="hint_actualPassword">Senha atual</string>
     <string name="hint_newPassword">Nova senha</string>
     <string name="hint_confirmPassword">Confirme sua nova senha</string>
+    <string name="toast_sameName">Nome digitado é igual ao cadastrado</string>
     <string name="toast_diferentActualPassword">Senha atual difere da cadastrada</string>
     <string name="toast_diferentConfirmationPassword">Nova senha difere da senha de confirmação</string>
     <string name="toast_passwordUpdated">Senha atualizada com sucesso!</string>
@@ -62,4 +65,9 @@
     <string name="btn_publish">Publicar</string>
     <string name="hint_postTitle">Título da postagem</string>
     <string name="toast_posted">Postado!</string>
+    <string name="toast_updated">Atualizado!</string>
+    <string name="hint_addParticipants">Adicionar participantes</string>
+    <string name="hint_typeYourMessage">Digite sua mensagem..</string>
+    <string name="toast_failLoadingData">Falha ao carregar os dados!</string>
+    <string name="no_results">Nenhum resultado encontrado.</string>
 </resources>

@@ -33,7 +33,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import com.yakuzasqn.vdevoluntario.R;
-import com.yakuzasqn.vdevoluntario.support.FirebaseConfig;
+import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -45,11 +45,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
@@ -438,9 +434,9 @@ public class Utils {
     public static void showSnackbarMessage(int message, Activity activity, View view){
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
-        sbView.setBackgroundColor(activity.getResources().getColor(R.color.colorWoodsmoke));
+        sbView.setBackgroundColor(activity.getResources().getColor(R.color.colorPrimaryDark));
         TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
+        textView.setTextColor(activity.getResources().getColor(R.color.colorWhite));
         snackbar.show();
     }
 
@@ -484,7 +480,7 @@ public class Utils {
 
     /* Firebase methods */
     private static void deleteFileFromStorage(String uri){
-        StorageReference photoRef = FirebaseConfig.getFirebaseStorage().getReferenceFromUrl(uri);
+        StorageReference photoRef = FirebaseUtils.getFirebaseStorage().getReferenceFromUrl(uri);
 
         photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

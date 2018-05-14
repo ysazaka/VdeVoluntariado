@@ -1,9 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.ChatActivity">
+    >
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_back_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorWhite"
+        />
+
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/messagesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/input"
+        android:layout_below="@+id/toolbar_back_chat"
+        app:incomingTextLinkColor="@color/colorPrimary"
+        app:outcomingTextLinkColor="@color/colorPrimary"
+        app:incomingDefaultBubbleColor="@color/colorWildSand"
+        app:outcomingDefaultBubbleColor="@color/colorHawkesBlue"
+        app:incomingDefaultBubblePressedColor="@color/colorPrimary"
+        app:outcomingDefaultBubblePressedColor="@color/colorPrimary"
+        app:incomingTextColor="@color/colorWhite"
+        app:outcomingTextColor="@color/colorWhite"
+        app:incomingTextSize="16sp"
+        app:outcomingTextSize="16sp"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress_msg_list"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:indeterminateTint="@color/colorWhite"
+        android:layout_centerInParent="true"
+        android:indeterminate="true" />
+
+    <com.stfalcon.chatkit.messages.MessageInput
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:inputButtonDefaultBgColor="@color/colorPrimary"
+        app:inputButtonDefaultBgPressedColor="@color/colorPrimaryDark"
+        app:attachmentButtonDefaultBgColor="@android:color/transparent"
+        app:attachmentButtonDefaultBgPressedColor="@android:color/transparent"
+        app:attachmentButtonDefaultIconColor="@color/colorPrimary"
+        app:attachmentButtonDefaultIconPressedColor="@color/colorPrimaryDark"
+        app:inputTextColor="@color/colorWhite"
+        app:inputHint="@string/hint_typeYourMessage"
+        />
+
+</RelativeLayout>

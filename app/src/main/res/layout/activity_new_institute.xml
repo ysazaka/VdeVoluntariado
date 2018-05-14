@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/ni_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorWhite"
         />
 
     <ScrollView
@@ -49,6 +50,11 @@
                     android:layout_weight="7.25"
                     android:hint="@string/hint_instituteName"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:lines="1"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    android:maxLines="1"
                     />
 
             </LinearLayout>
@@ -59,6 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_adress"
+                android:lines="1"
+                android:minLines="1"
+                android:singleLine="true"
+                android:maxLines="1"
                 />
 
             <!-- Site -->
@@ -67,6 +77,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_site"
+                android:lines="1"
+                android:minLines="1"
+                android:singleLine="true"
+                android:maxLines="1"
                 />
 
             <!-- Phone + Category -->
@@ -84,12 +98,16 @@
                     android:layout_weight="5"
                     android:hint="@string/hint_phone"
                     android:layout_marginEnd="5dp"
+                    android:lines="1"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    android:maxLines="1"
                     />
 
                 <Spinner
                     android:id="@+id/ni_spin_category"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="5"
                     android:spinnerMode="dialog"
                     />

@@ -3,23 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <TextView
-        android:id="@+id/tv_no_results"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/chp_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/no_results"
-        android:textColor="@color/colorBlack"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
         />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_contribute"
+        android:id="@+id/rv_choose_participants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_marginTop="15dp"/>
 
 </LinearLayout>

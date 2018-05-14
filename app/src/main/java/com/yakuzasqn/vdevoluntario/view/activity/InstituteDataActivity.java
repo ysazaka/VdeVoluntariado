@@ -18,7 +18,7 @@ public class InstituteDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_institute_data);
 
         Toolbar toolbar = findViewById(R.id.id_toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

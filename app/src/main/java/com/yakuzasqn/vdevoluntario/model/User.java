@@ -3,6 +3,8 @@ package com.yakuzasqn.vdevoluntario.model;
 import com.google.firebase.database.Exclude;
 import com.stfalcon.chatkit.commons.models.IUser;
 
+import java.util.List;
+
 /**
  * Created by yoshi on 14/04/2018.
  */
@@ -15,7 +17,7 @@ public class User implements IUser{
     private String password;
     private String picture;
     // Ids dos grupos os quais o usuário pertence
-    private long[] groups;
+    private List<String> groupsId;
 
     public User(){}
 
@@ -28,7 +30,12 @@ public class User implements IUser{
         this.password = password;
     }
 
-    // Volunteer
+    public User(String id, String name, String picture) {
+        this.id = id;
+        this.name = name;
+        this.picture = picture;
+    }
+
     public User(String id, String name, String email, String password, String picture) {
         this.id = id;
         this.name = name;
@@ -37,6 +44,14 @@ public class User implements IUser{
         this.picture = picture;
     }
 
+    public User(String id, String name, String email, String password, String picture, List<String> groupsId) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.picture = picture;
+        this.groupsId = groupsId;
+    }
 
     @Override
     public String getId() {
@@ -82,6 +97,13 @@ public class User implements IUser{
         this.password = password;
     }
 
+    public List<String> getGroupsId() {
+        return groupsId;
+    }
+
+    public void setGroupsId(List<String> groupsId) {
+        this.groupsId = groupsId;
+    }
 }
 
 
