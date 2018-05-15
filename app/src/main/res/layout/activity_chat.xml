@@ -7,7 +7,7 @@
     >
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_back_chat"
+        android:id="@+id/chat_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -19,15 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
-        android:layout_below="@+id/toolbar_back_chat"
+        android:layout_below="@+id/chat_toolbar"
         app:incomingTextLinkColor="@color/colorPrimary"
         app:outcomingTextLinkColor="@color/colorPrimary"
         app:incomingDefaultBubbleColor="@color/colorWildSand"
-        app:outcomingDefaultBubbleColor="@color/colorHawkesBlue"
+        app:outcomingDefaultBubbleColor="@color/colorPrimary"
         app:incomingDefaultBubblePressedColor="@color/colorPrimary"
         app:outcomingDefaultBubblePressedColor="@color/colorPrimary"
-        app:incomingTextColor="@color/colorWhite"
-        app:outcomingTextColor="@color/colorWhite"
+        app:incomingTextColor="@color/colorBlack"
+        app:outcomingTextColor="@color/colorBlack"
         app:incomingTextSize="16sp"
         app:outcomingTextSize="16sp"
         />
@@ -51,7 +51,7 @@
         app:attachmentButtonDefaultBgPressedColor="@android:color/transparent"
         app:attachmentButtonDefaultIconColor="@color/colorPrimary"
         app:attachmentButtonDefaultIconPressedColor="@color/colorPrimaryDark"
-        app:inputTextColor="@color/colorWhite"
+        app:inputTextColor="@color/colorBlack"
         app:inputHint="@string/hint_typeYourMessage"
         />
 

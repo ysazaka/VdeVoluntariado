@@ -7,6 +7,7 @@ public class Post {
     private String description;
 
     private User user;
+    private Group group;
 
     public Post() {
     }
@@ -17,6 +18,14 @@ public class Post {
         this.title = title;
         this.description = description;
         this.user = user;
+    }
+
+    public Post(String id, String urlImage, String title, String description, Group group) {
+        this.id = id;
+        this.urlImage = urlImage;
+        this.title = title;
+        this.description = description;
+        this.group = group;
     }
 
     public String getId() {
@@ -59,4 +68,11 @@ public class Post {
         this.user = user;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 }

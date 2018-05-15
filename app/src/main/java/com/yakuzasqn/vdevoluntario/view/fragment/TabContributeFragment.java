@@ -1,14 +1,13 @@
 package com.yakuzasqn.vdevoluntario.view.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,8 +24,6 @@ import com.yakuzasqn.vdevoluntario.support.RecyclerItemClickListener;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 import com.yakuzasqn.vdevoluntario.view.activity.ChatActivity;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +32,11 @@ import java.util.List;
  */
 public class TabContributeFragment extends Fragment {
 
-    private Context context;
     private List<Post> postList;
     private PostAdapter adapter;
     private RecyclerView.OnItemTouchListener listener;
+
+    private User actualUser;
 
     private DatabaseReference mRef;
     private ValueEventListener valueEventListenerGroup;
@@ -53,7 +51,7 @@ public class TabContributeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tab_contribute, container, false);
 
-        TextView tvNoResults = v.findViewById(R.id.tv_no_results);
+        actualUser = Hawk.get(Constants.USER_SESSION);
 
         /***************************************************************
          Montagem do RecyclerView e do Adapter
@@ -62,9 +60,9 @@ public class TabContributeFragment extends Fragment {
         postList = new ArrayList<>();
 
         final RecyclerView rvContribute = v.findViewById(R.id.rv_contribute);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
-//        adapter = new PostAdapter(getContext(), postList);
-//        rvContribute.setAdapter(adapter);
+        rvContribute.setLayoutManager(mLayoutManager);
 
         if (listener != null){
             rvContribute.removeOnItemTouchListener(listener);
@@ -75,14 +73,16 @@ public class TabContributeFragment extends Fragment {
                 Post chosenPost = postList.get(position);
                 User chosenPostUser = chosenPost.getUser();
 
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                Hawk.put(Constants.CHOSEN_POST_USER, chosenPostUser);
+                if (chosenPostUser != actualUser){
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    Hawk.put(Constants.CHOSEN_POST_USER, chosenPostUser);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }
             }
         });
 
-        rvContribute.addOnItemTouchListener(listener);
+//        rvContribute.addOnItemTouchListener(listener);
 
         /***************************************************************
          Recuperar dados do Firebase

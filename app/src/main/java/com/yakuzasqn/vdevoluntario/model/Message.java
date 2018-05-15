@@ -11,14 +11,14 @@ import java.util.Date;
 public class Message implements IMessage, MessageContentType.Image{
 
     /* IMessage required attributes */
-    private long id;
+    private String id;
     private String message;
     private long createdAt;
     private User userChatWith;
 
-    private long userID;
+    private String userID;
 
-    private long toUserID;
+    private String toUserID;
 
     private String media;
 
@@ -28,15 +28,17 @@ public class Message implements IMessage, MessageContentType.Image{
 
     private File file;
 
+    public Message() {
+    }
 
-    public Message(long s, String message, long date, User user) {
+    public Message(String s, String message, long date, User user) {
         this.userID = s;
         this.message = message;
         this.createdAt = date;
         this.userChatWith = user;
     }
 
-    public Message(long s, File file, long date, User user) {
+    public Message(String s, File file, long date, User user) {
         this.userID = s;
         this.file = file;
         this.createdAt = date;
@@ -45,7 +47,7 @@ public class Message implements IMessage, MessageContentType.Image{
 
     @Override
     public String getId() {
-        return String.valueOf(id);
+        return id;
     }
 
     @Override
@@ -58,16 +60,16 @@ public class Message implements IMessage, MessageContentType.Image{
         return new User(String.valueOf(userID));
     }
 
-    public long getUserID() {
-        return userID;
-    }
-
     @Override
     public Date getCreatedAt() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(createdAt * 1000);
 
         return calendar.getTime();
+    }
+
+    public User getUserFromMesage(){
+        return userChatWith;
     }
 
     public void setText(String message) {
@@ -86,7 +88,7 @@ public class Message implements IMessage, MessageContentType.Image{
         this.userChatWith = userChatWith;
     }
 
-    public long getToUserID() {
+    public String getToUserID() {
         return toUserID;
     }
 

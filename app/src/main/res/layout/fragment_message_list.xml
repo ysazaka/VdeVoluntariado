@@ -5,9 +5,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.stfalcon.chatkit.dialogs.DialogsList
-        android:id="@+id/dialogsList"
+    <RelativeLayout
+        android:id="@+id/rl_message_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_message_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_no_results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/progressbar_no_results"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:visibility="gone"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_message_list"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:layout_centerInParent="true"
+            android:indeterminate="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>

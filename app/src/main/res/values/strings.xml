@@ -70,4 +70,9 @@
     <string name="hint_typeYourMessage">Digite sua mensagem..</string>
     <string name="toast_failLoadingData">Falha ao carregar os dados!</string>
     <string name="no_results">Nenhum resultado encontrado.</string>
+    <string name="progressbar_no_results">Nenhum resultado foi encontrado. Inicie uma conversa com alguém através das postagens</string>
+    <string name="example_hour">11:45</string>
+    <string name="toast_errorCreatingContact">Erro ao gravar contato!</string>
+    <string name="toast_errorCreatingMessage">Erro ao cadastrar mensagem!</string>
+    <string name="toast_errorCreatingChat">Erro ao cadastrar conversa!</string>
 </resources>
