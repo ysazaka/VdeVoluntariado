@@ -1,12 +1,10 @@
 package com.yakuzasqn.vdevoluntario.view.activity;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -40,13 +38,7 @@ public class CreateInstituteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_institute);
 
-        Toolbar toolbar = findViewById(R.id.ci_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
-        toolbar.setTitle("Criar grupo");
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Utils.setBackableToolbar(R.id.ci_toolbar, "Criar grupo", CreateInstituteActivity.this);
 
         group = Hawk.get(Constants.GROUP);
 
@@ -65,7 +57,7 @@ public class CreateInstituteActivity extends AppCompatActivity {
         ciAdress.setText(group.getAdress());
         ciSite.setText(group.getSite());
         ciPhone.setText(group.getPhone());
-        ciCategory.setText(group.getCategory());
+        ciCategory.setText(group.getArea());
 
         llAddParticipants.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +70,6 @@ public class CreateInstituteActivity extends AppCompatActivity {
         ciBtnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                group.setParticipantsId(participantsIdList);
                 createGroupDatabase(group);
             }
         });
@@ -101,6 +92,8 @@ public class CreateInstituteActivity extends AppCompatActivity {
             participantsList = Hawk.get(Constants.CHOSEN_PARTICIPANTS);
             participantsIdList = Hawk.get(Constants.CHOSEN_PARTICIPANTS_ID);
 
+            group.setParticipantsId(participantsIdList);
+
             if (participantsList != null && participantsIdList != null){
                 rvParticipants.setVisibility(View.VISIBLE);
             }
@@ -108,9 +101,10 @@ public class CreateInstituteActivity extends AppCompatActivity {
 
     }
 
-    // TODO: Verificar como fazer a estrutura das instituições no Firebase
     private void createGroupDatabase(Group group){
         try{
+            dialog = ProgressDialog.show(CreateInstituteActivity.this, "", "Cadastrando grupo, aguarde...", true);
+
             DatabaseReference mRef = FirebaseUtils.getBaseRef().child("groups");
 
             // Salvar o grupo
@@ -119,27 +113,13 @@ public class CreateInstituteActivity extends AppCompatActivity {
             mRef.child(key).setValue(group);
 
             // Salvar o grupo para o usuário
+            Utils.showToast(R.string.toast_created, CreateInstituteActivity.this);
+            dialog.dismiss();
 
-            dialog = ProgressDialog.show(CreateInstituteActivity.this, "", "Criando instituição, aguarde...", true);
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    Utils.showToast(R.string.toast_posted, CreateInstituteActivity.this);
-                    Intent intent = new Intent(CreateInstituteActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+            Intent intent = new Intent(CreateInstituteActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
 
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            if( dialog != null ) dialog.dismiss();
-                        }
-                    },
-                    5000
-            );
 
         } catch(Exception e){
             Utils.showToast(R.string.toast_errorCreateGroup, CreateInstituteActivity.this);

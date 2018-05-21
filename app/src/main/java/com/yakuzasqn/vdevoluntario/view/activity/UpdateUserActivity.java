@@ -40,13 +40,7 @@ public class UpdateUserActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user);
 
-        Toolbar toolbar = findViewById(R.id.up_toolbar);
-        toolbar.setTitle("Atualizar dados");
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Utils.setBackableToolbar(R.id.up_toolbar, "Atualizar dados", UpdateUserActivity.this);
 
         etNewName = findViewById(R.id.up_et_new_name);
         etActualPassword = findViewById(R.id.up_et_actual_password);

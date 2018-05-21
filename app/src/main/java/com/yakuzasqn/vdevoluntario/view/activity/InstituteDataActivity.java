@@ -4,11 +4,19 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.glide.slider.library.svg.GlideApp;
+import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
+import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.support.Constants;
+import com.yakuzasqn.vdevoluntario.util.Utils;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InstituteDataActivity extends AppCompatActivity {
 
@@ -17,17 +25,20 @@ public class InstituteDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_institute_data);
 
-        Toolbar toolbar = findViewById(R.id.id_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Group group = Hawk.get(Constants.CHOSEN_GROUP);
+
+        Utils.setBackableToolbar(R.id.id_toolbar, "", InstituteDataActivity.this);
 
         LinearLayout llCheckInstitute = findViewById(R.id.id_check_institute);
         LinearLayout llCreateVolunteerOffer = findViewById(R.id.id_create_volunteer_offer);
         LinearLayout llCreateInstituteDemand = findViewById(R.id.id_create_institute_demand);
         LinearLayout llCheckChat = findViewById(R.id.id_check_chat);
         LinearLayout llManageParticipants = findViewById(R.id.id_manage_participants);
+        CircleImageView civPhoto = findViewById(R.id.id_photo);
+        TextView tvName = findViewById(R.id.id_name);
+
+        GlideApp.with(getApplicationContext()).load(group.getPicture()).centerCrop().into(civPhoto);
+        tvName.setText(group.getName());
 
         llCheckInstitute.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +74,17 @@ public class InstituteDataActivity extends AppCompatActivity {
                 openNextActivity(Constants.MANAGE_PARTICIPANTS_ACTIVITY);
             }
         });
+    }
+
+    // Corrigir comportamento da seta de voltar - Toolbar customizada
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void openNextActivity(int activityName){

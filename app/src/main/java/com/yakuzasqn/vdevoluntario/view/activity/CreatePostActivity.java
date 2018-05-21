@@ -66,11 +66,7 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
 
-        Toolbar toolbar = findViewById(R.id.cp_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Utils.setBackableToolbar(R.id.cp_toolbar, "", CreatePostActivity.this);
 
         postPhoto = findViewById(R.id.cp_post_photo);
         etPostTitle = findViewById(R.id.cp_post_title);
@@ -169,6 +165,7 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 dialog.dismiss();
+
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 post.setUrlImage(downloadUrl.toString());
                 post.setTitle(title);
@@ -182,30 +179,19 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
 
     private void createPostDatabase(Post post){
         try{
+            dialog = ProgressDialog.show(CreatePostActivity.this, "", "Cadastrando postagem, aguarde...", true);
+
             DatabaseReference mRef = FirebaseUtils.getBaseRef().child("posts");
 
             String key = mRef.push().getKey();
             post.setId(key);
             mRef.child(key).setValue(post);
 
-            dialog = ProgressDialog.show(CreatePostActivity.this, "", "Cadastrando postagem, aguarde...", true);
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    Utils.showToast(R.string.toast_posted, CreatePostActivity.this);
-                    finish();
-                }
-            });
+            Utils.showToast(R.string.toast_posted, CreatePostActivity.this);
+            dialog.dismiss();
 
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            if( dialog != null ) dialog.dismiss();
-                        }
-                    },
-                    2500
-            );
+            finish();
+
         } catch(Exception e){
             Utils.showToast(getString(R.string.toast_errorCreateUser), CreatePostActivity.this);
             e.printStackTrace();

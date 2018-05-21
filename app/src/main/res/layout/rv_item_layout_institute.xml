@@ -17,6 +17,8 @@
         android:orientation="horizontal"
         android:weightSum="12"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -24,7 +26,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:src="@mipmap/institute_photo"
             />
 
         <TextView
@@ -34,7 +35,6 @@
             android:layout_weight="8.5"
             android:layout_gravity="center_vertical"
             android:textSize="18sp"
-            android:text="@string/example_institute"
             android:minLines="1"
             android:maxLines="1"
             android:layout_marginStart="15dp"

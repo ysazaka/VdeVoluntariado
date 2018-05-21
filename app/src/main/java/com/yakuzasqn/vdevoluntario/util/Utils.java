@@ -19,6 +19,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
@@ -452,6 +454,16 @@ public class Utils {
         Long timestampLong = System.currentTimeMillis()/1000;
 
         return timestampLong.toString();
+    }
+
+    public static void setBackableToolbar(int toolbarId, String toolbarTitle, Activity activity){
+        Toolbar toolbar = activity.findViewById(toolbarId);
+        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
+        toolbar.setTitle(toolbarTitle);
+        toolbar.setTitleTextColor(activity.getResources().getColor(R.color.colorWhite));
+        ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+        ((AppCompatActivity)activity).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /* Methods used to get the device name, useful to deal with specific devices */

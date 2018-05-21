@@ -31,7 +31,7 @@
     <string name="btn_createOffer">Criar oferta voluntária</string>
     <string name="dialog_chooseProfilePhoto">Escolha a sua foto de perfil</string>
     <string name="dialog_chooseProfilePhotoInstitute">Escolha a foto de perfil</string>
-    <string name="dialog_chooseCategory">Escolha uma categoria</string>
+    <string name="dialog_chooseArea">Escolha uma área de atuação</string>
     <string name="new_institute">Nova instituição</string>
     <string name="example_institute">Wong Fu Productions</string>
     <string name="example_volunteer">Wesley Chan</string>
@@ -75,4 +75,5 @@
     <string name="toast_errorCreatingContact">Erro ao gravar contato!</string>
     <string name="toast_errorCreatingMessage">Erro ao cadastrar mensagem!</string>
     <string name="toast_errorCreatingChat">Erro ao cadastrar conversa!</string>
+    <string name="toast_created">Cadastrado!</string>
 </resources>

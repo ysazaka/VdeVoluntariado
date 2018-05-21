@@ -2,7 +2,9 @@ package com.yakuzasqn.vdevoluntario.model;
 
 public class Chat {
 
-    private String userId, userName, message;
+    private String userId, userPhoto, userName, message;
+
+    private long timestamp;
 
     public Chat() {}
 
@@ -13,6 +15,14 @@ public class Chat {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
     }
 
     public String getUserName() {
@@ -29,5 +39,13 @@ public class Chat {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

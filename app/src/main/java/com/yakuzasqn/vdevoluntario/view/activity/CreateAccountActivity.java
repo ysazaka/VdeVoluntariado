@@ -79,13 +79,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        Toolbar toolbar = findViewById(R.id.ca_toolbar);
-        toolbar.setTitle("Cadastro de usuário");
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Utils.setBackableToolbar(R.id.ca_toolbar, "Cadastro de usuário", CreateAccountActivity.this);
 
         profilePhoto = findViewById(R.id.ca_profile_photo);
         etName = findViewById(R.id.ca_name);

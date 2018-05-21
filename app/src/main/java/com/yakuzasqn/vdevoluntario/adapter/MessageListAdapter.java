@@ -6,14 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.glide.slider.library.svg.GlideApp;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.yakuzasqn.vdevoluntario.R;
+import com.yakuzasqn.vdevoluntario.model.Chat;
 import com.yakuzasqn.vdevoluntario.model.Message;
 import com.yakuzasqn.vdevoluntario.model.User;
 
@@ -24,11 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.MessageListViewHolder>{
     private Context context;
-    private List<Message> msgList;
+    private List<Chat> chatList;
 
-    public MessageListAdapter(Context context, List<Message> msgList) {
+    public MessageListAdapter(Context context, List<Chat> chatList) {
         this.context = context;
-        this.msgList = msgList;
+        this.chatList = chatList;
     }
 
     @Override
@@ -40,19 +39,19 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MessageListAdapter.MessageListViewHolder holder, int position) {
-        User user = msgList.get(position).getUserChatWith();
-        Message message = msgList.get(position);
+        Chat chat = chatList.get(position);
 
-        String lastMessageTime = getDateString(msgList.get(position).getCreatedAt());
+        Date date = new Date(chatList.get(position).getTimestamp());
+        String lastMessageTime = getDateString(date);
 
-        if (user != null){
-            GlideApp.with(context).load(user.getPicture())
+        if (chat != null){
+            GlideApp.with(context).load(chat.getUserPhoto())
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(holder.photo);
 
-            holder.name.setText(user.getName());
+            holder.name.setText(chat.getUserName());
         }
-        holder.message.setText(message.getMessage());
+        holder.message.setText(chat.getMessage());
         holder.time.setText(lastMessageTime);
     }
 
@@ -68,7 +67,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
     @Override
     public int getItemCount() {
-        return msgList.size();
+        return chatList.size();
     }
 
     static class MessageListViewHolder extends RecyclerView.ViewHolder {

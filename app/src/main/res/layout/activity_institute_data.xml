@@ -30,7 +30,6 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:src="@mipmap/institute_photo"
                 />
 
             <!-- Check institute data -->
@@ -50,12 +49,12 @@
                 >
 
                 <TextView
+                    android:id="@+id/id_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8.5"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
-                    android:text="@string/example_instituteName"
                     android:textColor="@color/colorBlack"
                     android:minLines="1"
                     android:maxLines="1"

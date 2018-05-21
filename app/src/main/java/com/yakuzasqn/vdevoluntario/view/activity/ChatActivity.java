@@ -1,11 +1,9 @@
 package com.yakuzasqn.vdevoluntario.view.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +32,7 @@ import com.yakuzasqn.vdevoluntario.util.Utils;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 public class ChatActivity extends AppCompatActivity  implements
         MessageInput.InputListener,
@@ -69,14 +64,10 @@ public class ChatActivity extends AppCompatActivity  implements
         user = Hawk.get(Constants.USER_SESSION);
         chosenUser = Hawk.get(Constants.CHOSEN_POST_USER);
 
-        Toolbar toolbar = findViewById(R.id.chat_toolbar);
         if (chosenUser != null)
-            toolbar.setTitle(chosenUser.getName());
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Utils.setBackableToolbar(R.id.chat_toolbar, chosenUser.getName(), ChatActivity.this);
+        else
+            Utils.setBackableToolbar(R.id.chat_toolbar, "", ChatActivity.this);
 
         messagesList = findViewById(R.id.messagesList);
         setupMsgList();
@@ -109,8 +100,8 @@ public class ChatActivity extends AppCompatActivity  implements
     @Override
     public boolean onSubmit(CharSequence input) {
         String str = StringEscapeUtils.escapeJava(input.toString());
-        Message msg = new Message(user.getId(), str,
-                (Calendar.getInstance().getTime().getTime() / 1000), user);
+        Long timestampLong = System.currentTimeMillis()/1000;
+        Message msg = new Message(user.getId(), str, timestampLong);
         adapter.addToStart(msg, true);
 
         createMessageDatabase(msg);
@@ -118,15 +109,19 @@ public class ChatActivity extends AppCompatActivity  implements
         // Save the chat to actual user
         chat = new Chat();
         chat.setUserId(user.getId());
+        chat.setUserPhoto(user.getPicture());
         chat.setUserName(user.getName());
-        chat.setMessage(msg.getMessage());
+        chat.setMessage(msg.getText());
+        chat.setTimestamp(msg.getTimestamp());
         saveChatDatabase(chat, user.getId(), chosenUser.getId());
 
         // Save the chat to destiny user
         chat = new Chat();
         chat.setUserId(chosenUser.getId());
+        chat.setUserPhoto(chosenUser.getPicture());
         chat.setUserName(chosenUser.getName());
-        chat.setMessage(msg.getMessage());
+        chat.setMessage(msg.getText());
+        chat.setTimestamp(msg.getTimestamp());
         saveChatDatabase(chat, chosenUser.getId(), user.getId());
 
         return true;
@@ -147,8 +142,9 @@ public class ChatActivity extends AppCompatActivity  implements
                 msgList.clear();
 
                 // Recuperar mensagens
-                for (DataSnapshot dados: dataSnapshot.getChildren()){
-                    // TODO: Verificar o retorno do dataSnapshot, o tipo Message é muito grande
+                // Get map of users in datasnapshot
+//                collectMessages((Map<String,Object>) dataSnapshot.getValue());
+                for (DataSnapshot dados: dataSnapshot.child(chosenUser.getId()).getChildren()){
                     Message message = dados.getValue(Message.class);
                     msgList.add(message);
                 }
@@ -168,6 +164,24 @@ public class ChatActivity extends AppCompatActivity  implements
         mRef.addValueEventListener(valueEventListenerMensagem);
 
     }
+
+//    private void collectMessages(Map<String,Object> msgs) {
+//        //iterate through each message, ignoring their UID
+//        for (Map.Entry<String, Object> entry : msgs.entrySet()){
+//
+//            //Get message map
+//            Map singleMsg = (Map) entry.getValue();
+//            //Get fields and append to list
+//            Message msg = new Message();
+//            msg.setCreatedAt((Long) singleMsg.get(("timestamp")));
+//            msg.setRequestID((Long) singleMsg.get("requestID"));
+//            msg.setMessage((String) singleMsg.get("text"));
+//            msg.setUpdatedAt((Long) singleMsg.get("updatedAt"));
+//
+//            msgList.add(msg);
+//        }
+//
+//    }
 
     private void setupMsgList(){
         messagesList.setHasFixedSize(true);

@@ -84,35 +84,29 @@
                 />
 
             <!-- Phone + Category -->
-            <LinearLayout
+            <EditText
+                android:id="@+id/ni_et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10"
-                >
+                android:hint="@string/hint_phone"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:inputType="phone"
+                android:lines="1"
+                android:minLines="1"
+                android:singleLine="true"
+                android:maxLines="1"
+                />
 
-                <EditText
-                    android:id="@+id/ni_et_phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:hint="@string/hint_phone"
-                    android:layout_marginEnd="5dp"
-                    android:lines="1"
-                    android:minLines="1"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    />
-
-                <Spinner
-                    android:id="@+id/ni_spin_category"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:spinnerMode="dialog"
-                    />
-
-            </LinearLayout>
+            <Spinner
+                android:id="@+id/ni_spin_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dialog"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginTop="15dp"
+                />
 
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->

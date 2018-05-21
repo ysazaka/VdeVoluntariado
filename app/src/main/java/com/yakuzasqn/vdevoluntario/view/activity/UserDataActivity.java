@@ -13,6 +13,7 @@ import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
+import com.yakuzasqn.vdevoluntario.util.Utils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,16 +26,9 @@ public class UserDataActivity extends AppCompatActivity {
 
         User user = Hawk.get(Constants.USER_SESSION);
 
-        Toolbar toolbar = findViewById(R.id.ud_toolbar);
-        toolbar.setTitle(user.getName());
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_white);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Utils.setBackableToolbar(R.id.ud_toolbar, user.getName(), UserDataActivity.this);
 
         CircleImageView civUserPhoto = findViewById(R.id.ud_photo);
-
         GlideApp.with(getApplicationContext()).load(user.getPicture()).centerCrop().into(civUserPhoto);
 
         LinearLayout llUpdatePassword = findViewById(R.id.ud_update_user);

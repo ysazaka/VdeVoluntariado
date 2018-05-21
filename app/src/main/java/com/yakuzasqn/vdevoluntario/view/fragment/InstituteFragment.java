@@ -1,8 +1,10 @@
 package com.yakuzasqn.vdevoluntario.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,10 +66,10 @@ public class InstituteFragment extends Fragment {
 
         groupList = new ArrayList<>();
 
-        RecyclerView rvInstitute = v.findViewById(R.id.rv_institute);
+        final RecyclerView rvInstitute = v.findViewById(R.id.rv_institute);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
-        adapter = new InstituteAdapter(getContext(), groupList);
-        rvInstitute.setAdapter(adapter);
+        rvInstitute.setLayoutManager(mLayoutManager);
 
         if (listener != null){
             rvInstitute.removeOnItemTouchListener(listener);
@@ -90,7 +92,8 @@ public class InstituteFragment extends Fragment {
          Recuperar dados do Firebase
          ****************************************************************/
 
-        mRef = FirebaseUtils.getBaseRef().child("group");
+        ProgressDialog dialog = ProgressDialog.show(getActivity(), "", "Carregando grupos, aguarde...", true);
+        mRef = FirebaseUtils.getBaseRef().child("groups");
         // Cria listener
         valueEventListenerGroup = new ValueEventListener() {
             @Override
@@ -104,7 +107,9 @@ public class InstituteFragment extends Fragment {
                     groupList.add(group);
                 }
 
+                adapter = new InstituteAdapter(getContext(), groupList);
                 adapter.notifyDataSetChanged();
+                rvInstitute.setAdapter(adapter);
             }
 
             @Override
@@ -114,6 +119,7 @@ public class InstituteFragment extends Fragment {
         };
 
         mRef.addValueEventListener(valueEventListenerGroup);
+        dialog.dismiss();
 
         return v;
     }

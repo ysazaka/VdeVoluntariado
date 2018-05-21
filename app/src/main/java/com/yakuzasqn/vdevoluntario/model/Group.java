@@ -8,7 +8,7 @@ public class Group {
     private String adress;
     private String site;
     private String phone;
-    private String category;
+    private String area;
     private String picture;
     private List<String> pictures;
 
@@ -17,24 +17,34 @@ public class Group {
 
     public Group() {}
 
-    public Group(String id, String name, String adress, String site, String phone, String category, String picture, List<String> participantsId) {
+    public Group(String id, String name, String adress, String phone, String area, String picture, List<String> participantsId) {
         this.id = id;
         this.name = name;
         this.adress = adress;
-        this.site = site;
         this.phone = phone;
-        this.category = category;
+        this.area = area;
         this.picture = picture;
         this.participantsId = participantsId;
     }
 
-    public Group(String id, String name, String adress, String site, String phone, String category, List<String> pictures, List<String> participantsId) {
+    public Group(String id, String name, String adress, String site, String phone, String area, String picture, List<String> participantsId) {
         this.id = id;
         this.name = name;
         this.adress = adress;
         this.site = site;
         this.phone = phone;
-        this.category = category;
+        this.area = area;
+        this.picture = picture;
+        this.participantsId = participantsId;
+    }
+
+    public Group(String id, String name, String adress, String site, String phone, String area, List<String> pictures, List<String> participantsId) {
+        this.id = id;
+        this.name = name;
+        this.adress = adress;
+        this.site = site;
+        this.phone = phone;
+        this.area = area;
         this.pictures = pictures;
         this.participantsId = participantsId;
     }
@@ -80,12 +90,12 @@ public class Group {
         this.phone = phone;
     }
 
-    public String getCategory() {
-        return category;
+    public String getArea() {
+        return area;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getPicture() {
