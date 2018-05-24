@@ -4,11 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.glide.slider.library.svg.GlideApp;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +34,7 @@ import com.yakuzasqn.vdevoluntario.util.Utils;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity  implements
@@ -42,6 +45,7 @@ public class ChatActivity extends AppCompatActivity  implements
 
     // Destinatário = chosenUser | Remetente = user
     private User user, chosenUser;
+    private Message msg;
 
     private Chat chat;
 
@@ -52,6 +56,7 @@ public class ChatActivity extends AppCompatActivity  implements
     private Boolean mIsLoading = false;
     private Boolean isGetMoreItens = true;
     private ProgressBar progressBar;
+    private RelativeLayout layout;
 
     private DatabaseReference mRef;
     private ValueEventListener valueEventListenerMensagem;
@@ -73,6 +78,9 @@ public class ChatActivity extends AppCompatActivity  implements
         setupMsgList();
         msgList = new ArrayList<>();
 
+        layout = findViewById(R.id.rl_chat);
+        progressBar = findViewById(R.id.progress_msg_list);
+
         imageLoader = new ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url) {
@@ -82,6 +90,8 @@ public class ChatActivity extends AppCompatActivity  implements
 
         MessageInput input = findViewById(R.id.input);
         input.setInputListener(this);
+
+        initAdapter();
 
         loadMessages();
     }
@@ -100,29 +110,11 @@ public class ChatActivity extends AppCompatActivity  implements
     @Override
     public boolean onSubmit(CharSequence input) {
         String str = StringEscapeUtils.escapeJava(input.toString());
-        Long timestampLong = System.currentTimeMillis()/1000;
-        Message msg = new Message(user.getId(), str, timestampLong);
+        String userId = user.getId();
+        msg = new Message(userId, str, Calendar.getInstance().getTime(), chosenUser);
         adapter.addToStart(msg, true);
 
         createMessageDatabase(msg);
-
-        // Save the chat to actual user
-        chat = new Chat();
-        chat.setUserId(user.getId());
-        chat.setUserPhoto(user.getPicture());
-        chat.setUserName(user.getName());
-        chat.setMessage(msg.getText());
-        chat.setTimestamp(msg.getTimestamp());
-        saveChatDatabase(chat, user.getId(), chosenUser.getId());
-
-        // Save the chat to destiny user
-        chat = new Chat();
-        chat.setUserId(chosenUser.getId());
-        chat.setUserPhoto(chosenUser.getPicture());
-        chat.setUserName(chosenUser.getName());
-        chat.setMessage(msg.getText());
-        chat.setTimestamp(msg.getTimestamp());
-        saveChatDatabase(chat, chosenUser.getId(), user.getId());
 
         return true;
     }
@@ -133,26 +125,39 @@ public class ChatActivity extends AppCompatActivity  implements
     }
 
     private void loadMessages(){
+        final DisplayMetrics metrics = getResources().getDisplayMetrics();
+
         mRef = FirebaseUtils.getBaseRef().child("messages").child(user.getId()).child(chosenUser.getId());
         // Cria listener
         valueEventListenerMensagem = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                layout.removeView(progressBar);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT, (int) (metrics.density * 30));
+                lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                layout.addView(progressBar, lp);
+
+                progressBar.setVisibility(View.INVISIBLE);
+                ViewGroup.MarginLayoutParams marginLayoutParams =
+                        (ViewGroup.MarginLayoutParams) messagesList.getLayoutParams();
+                marginLayoutParams.setMargins(0, 0, 0, 0);
+                messagesList.setLayoutParams(marginLayoutParams);
+
                 // Limpar ArrayList de mensagens
                 msgList.clear();
+                adapter.clear();
 
                 // Recuperar mensagens
-                // Get map of users in datasnapshot
-//                collectMessages((Map<String,Object>) dataSnapshot.getValue());
-                for (DataSnapshot dados: dataSnapshot.child(chosenUser.getId()).getChildren()){
+                for (DataSnapshot dados: dataSnapshot.getChildren()){
                     Message message = dados.getValue(Message.class);
                     msgList.add(message);
                 }
 
-                adapter = new MessagesListAdapter<>(String.valueOf(user.getId()), new MessageHolders(), imageLoader);
-                messagesList.setAdapter(adapter);
-                adapter.addToEnd(msgList, false);
-                adapter.notifyDataSetChanged();
+                if (msgList != null && !msgList.isEmpty()){
+                    adapter.addToEnd(msgList, false);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -164,24 +169,6 @@ public class ChatActivity extends AppCompatActivity  implements
         mRef.addValueEventListener(valueEventListenerMensagem);
 
     }
-
-//    private void collectMessages(Map<String,Object> msgs) {
-//        //iterate through each message, ignoring their UID
-//        for (Map.Entry<String, Object> entry : msgs.entrySet()){
-//
-//            //Get message map
-//            Map singleMsg = (Map) entry.getValue();
-//            //Get fields and append to list
-//            Message msg = new Message();
-//            msg.setCreatedAt((Long) singleMsg.get(("timestamp")));
-//            msg.setRequestID((Long) singleMsg.get("requestID"));
-//            msg.setMessage((String) singleMsg.get("text"));
-//            msg.setUpdatedAt((Long) singleMsg.get("updatedAt"));
-//
-//            msgList.add(msg);
-//        }
-//
-//    }
 
     private void setupMsgList(){
         messagesList.setHasFixedSize(true);
@@ -214,15 +201,50 @@ public class ChatActivity extends AppCompatActivity  implements
         });
     }
 
+    private void initAdapter(){
+        adapter = new MessagesListAdapter<>(user.getId(), new MessageHolders(), null);
+        adapter.setLoadMoreListener(this);
+        messagesList.setAdapter(adapter);
+    }
+
     private void createMessageDatabase(Message message){
         try{
             DatabaseReference mRef = FirebaseUtils.getBaseRef().child("messages");
 
-            mRef.child(user.getId()).child(chosenUser.getId()).push().setValue(message);
+            String key = mRef.push().getKey();
+            message.setId(key);
+
+            mRef.child(user.getId()).child(chosenUser.getId()).child(key).setValue(message);
+            mRef.child(chosenUser.getId()).child(user.getId()).child(key).setValue(message);
+
+//            mRef.child(user.getId()).child(chosenUser.getId()).setValue(message);
+//            mRef.child(chosenUser.getId()).child(user.getId()).setValue(message);
+
+            saveChatForBothUsers();
         } catch(Exception e){
             Utils.showToast(R.string.toast_errorCreatingMessage, ChatActivity.this);
             e.printStackTrace();
         }
+    }
+
+    private void saveChatForBothUsers(){
+        // Save the chat to actual user
+        chat = new Chat();
+        chat.setUserId(user.getId());
+        chat.setUserPhoto(user.getPicture());
+        chat.setUserName(user.getName());
+        chat.setMessage(msg.getText());
+        chat.setCreatedAt(msg.getCreatedAt());
+        saveChatDatabase(chat, user.getId(), chosenUser.getId());
+
+        // Save the chat to destiny user
+        chat = new Chat();
+        chat.setUserId(chosenUser.getId());
+        chat.setUserPhoto(chosenUser.getPicture());
+        chat.setUserName(chosenUser.getName());
+        chat.setMessage(msg.getText());
+        chat.setCreatedAt(msg.getCreatedAt());
+        saveChatDatabase(chat, chosenUser.getId(), user.getId());
     }
 
     private void saveChatDatabase(Chat chat, String userId, String chosenUserId){

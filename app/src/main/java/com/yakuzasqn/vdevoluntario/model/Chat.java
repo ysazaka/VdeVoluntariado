@@ -1,10 +1,12 @@
 package com.yakuzasqn.vdevoluntario.model;
 
+import java.util.Date;
+
 public class Chat {
 
     private String userId, userPhoto, userName, message;
 
-    private long timestamp;
+    private Date createdAt;
 
     public Chat() {}
 
@@ -41,11 +43,11 @@ public class Chat {
         this.message = message;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

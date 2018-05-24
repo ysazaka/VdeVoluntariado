@@ -13,8 +13,6 @@ import com.glide.slider.library.svg.GlideApp;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.Chat;
-import com.yakuzasqn.vdevoluntario.model.Message;
-import com.yakuzasqn.vdevoluntario.model.User;
 
 import java.util.Date;
 import java.util.List;
@@ -41,7 +39,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     public void onBindViewHolder(@NonNull MessageListAdapter.MessageListViewHolder holder, int position) {
         Chat chat = chatList.get(position);
 
-        Date date = new Date(chatList.get(position).getTimestamp());
+        Date date = chatList.get(position).getCreatedAt();
         String lastMessageTime = getDateString(date);
 
         if (chat != null){

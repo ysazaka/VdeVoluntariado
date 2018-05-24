@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/rl_message_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/rl_message_list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_message_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_message_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
-        <TextView
-            android:id="@+id/tv_no_results"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/progressbar_no_results"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:visibility="gone"
-            />
-
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_no_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/progressbar_no_results"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:visibility="gone"
+        />
 
 </LinearLayout>

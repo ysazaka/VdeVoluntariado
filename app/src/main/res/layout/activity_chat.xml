@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/rl_chat"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -27,7 +28,7 @@
         app:incomingDefaultBubblePressedColor="@color/colorPrimary"
         app:outcomingDefaultBubblePressedColor="@color/colorPrimary"
         app:incomingTextColor="@color/colorBlack"
-        app:outcomingTextColor="@color/colorBlack"
+        app:outcomingTextColor="@color/colorWhite"
         app:incomingTextSize="16sp"
         app:outcomingTextSize="16sp"
         />

@@ -48,6 +48,8 @@ public class MessageListFragment extends Fragment{
     private DatabaseReference mRef;
     private ValueEventListener valueEventListenerGroup;
 
+    private User user;
+
     public MessageListFragment() {
         // Required empty public constructor
     }
@@ -60,6 +62,8 @@ public class MessageListFragment extends Fragment{
 
         rv = v.findViewById(R.id.rv_message_list);
         tv_no_results = v.findViewById(R.id.tv_no_results);
+
+        user = Hawk.get(Constants.USER_SESSION);
 
         setupRecycle();
         getChatsFromFirebase();
@@ -91,7 +95,7 @@ public class MessageListFragment extends Fragment{
     }
 
     private void getChatsFromFirebase(){
-        mRef = FirebaseUtils.getBaseRef().child("chats");
+        mRef = FirebaseUtils.getBaseRef().child("chats").child(user.getId());
         chatList = new ArrayList<>();
 
         // Cria listener
