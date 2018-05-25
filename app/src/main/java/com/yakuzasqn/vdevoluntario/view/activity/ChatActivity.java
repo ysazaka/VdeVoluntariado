@@ -67,7 +67,7 @@ public class ChatActivity extends AppCompatActivity  implements
         setContentView(R.layout.activity_chat);
 
         user = Hawk.get(Constants.USER_SESSION);
-        chosenUser = Hawk.get(Constants.CHOSEN_POST_USER);
+        chosenUser = Hawk.get(Constants.CHOSEN_USER_FOR_CHAT);
 
         if (chosenUser != null)
             Utils.setBackableToolbar(R.id.chat_toolbar, chosenUser.getName(), ChatActivity.this);
@@ -230,18 +230,14 @@ public class ChatActivity extends AppCompatActivity  implements
     private void saveChatForBothUsers(){
         // Save the chat to actual user
         chat = new Chat();
-        chat.setUserId(user.getId());
-        chat.setUserPhoto(user.getPicture());
-        chat.setUserName(user.getName());
+        chat.setChosenUser(chosenUser);
         chat.setMessage(msg.getText());
         chat.setCreatedAt(msg.getCreatedAt());
         saveChatDatabase(chat, user.getId(), chosenUser.getId());
 
         // Save the chat to destiny user
         chat = new Chat();
-        chat.setUserId(chosenUser.getId());
-        chat.setUserPhoto(chosenUser.getPicture());
-        chat.setUserName(chosenUser.getName());
+        chat.setChosenUser(user);
         chat.setMessage(msg.getText());
         chat.setCreatedAt(msg.getCreatedAt());
         saveChatDatabase(chat, chosenUser.getId(), user.getId());

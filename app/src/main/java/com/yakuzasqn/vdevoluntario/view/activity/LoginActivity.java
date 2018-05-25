@@ -98,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
             case Constants.MAIN_ACTIVITY:
                 Hawk.put(Constants.USER_SESSION ,user);
                 intent = new Intent(LoginActivity.this, MainActivity.class);
+                finish();
                 break;
             case Constants.FORGOT_PASSWORD_ACTIVITY:
                 intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);

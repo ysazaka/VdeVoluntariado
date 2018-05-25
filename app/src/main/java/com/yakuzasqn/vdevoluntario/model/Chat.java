@@ -4,35 +4,19 @@ import java.util.Date;
 
 public class Chat {
 
-    private String userId, userPhoto, userName, message;
-
+    private String message;
+    private User chosenUser;
     private Date createdAt;
 
     public Chat() {}
 
 
-    public String getUserId() {
-        return userId;
+    public User getChosenUser() {
+        return chosenUser;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserPhoto() {
-        return userPhoto;
-    }
-
-    public void setUserPhoto(String userPhoto) {
-        this.userPhoto = userPhoto;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setChosenUser(User chosenUser) {
+        this.chosenUser = chosenUser;
     }
 
     public String getMessage() {

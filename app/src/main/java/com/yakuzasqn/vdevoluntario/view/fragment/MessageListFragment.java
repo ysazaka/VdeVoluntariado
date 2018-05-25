@@ -7,12 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +20,6 @@ import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.adapter.MessageListAdapter;
 import com.yakuzasqn.vdevoluntario.model.Chat;
-import com.yakuzasqn.vdevoluntario.model.Message;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
@@ -83,8 +79,8 @@ public class MessageListFragment extends Fragment{
         listener = new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String chosenUserId = chatList.get(position).getUserId();
-                Hawk.put(Constants.CHOSEN_CHAT_USER_ID, chosenUserId);
+                User chosenUser = chatList.get(position).getChosenUser();
+                Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenUser);
 
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 startActivity(intent);

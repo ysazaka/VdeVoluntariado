@@ -4,8 +4,7 @@ public class Constants {
     public static final String USER_SESSION = "USER_SESSION";
     public static final String GROUP = "GROUP";
     public static final String CHOSEN_GROUP = "CHOSEN_GROUP";
-    public static final String CHOSEN_CHAT_USER_ID = "CHOSEN_CHAT_USER_ID";
-    public static final String CHOSEN_POST_USER = "CHOSEN_POST_USER";
+    public static final String CHOSEN_USER_FOR_CHAT = "CHOSEN_USER_FOR_CHAT";
     public static final String CHOSEN_PARTICIPANTS = "CHOSEN_PARTICIPANTS";
     public static final String CHOSEN_PARTICIPANTS_ID = "CHOSEN_PARTICIPANTS_ID";
 

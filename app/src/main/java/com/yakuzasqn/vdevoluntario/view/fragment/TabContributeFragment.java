@@ -75,7 +75,7 @@ public class TabContributeFragment extends Fragment {
 
                 if (chosenPostUser != actualUser){
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
-                    Hawk.put(Constants.CHOSEN_POST_USER, chosenPostUser);
+                    Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenPostUser);
 
                     startActivity(intent);
                 }
