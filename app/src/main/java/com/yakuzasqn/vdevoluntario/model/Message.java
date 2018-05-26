@@ -16,6 +16,7 @@ public class Message implements IMessage{
     private Date createdAt;
     private User userChatWith;
 
+    private Group groupChatWith;
     private String userID;
 
     public Message() {}
@@ -25,6 +26,13 @@ public class Message implements IMessage{
         this.message = message;
         this.createdAt = createdAt;
         this.userChatWith = userChatWith;
+    }
+
+    public Message(String userID, String message, Date createdAt, Group groupChatWith) {
+        this.userID = userID;
+        this.message = message;
+        this.createdAt = createdAt;
+        this.groupChatWith = groupChatWith;
     }
 
     /** Getters */
@@ -58,6 +66,10 @@ public class Message implements IMessage{
         return userChatWith;
     }
 
+    public Message(Group groupChatWith) {
+        this.groupChatWith = groupChatWith;
+    }
+
     /** Setters */
 
     public void setId(String id) {
@@ -80,4 +92,7 @@ public class Message implements IMessage{
         this.userChatWith = userChatWith;
     }
 
+    public void setGroupChatWith(Group groupChatWith) {
+        this.groupChatWith = groupChatWith;
+    }
 }

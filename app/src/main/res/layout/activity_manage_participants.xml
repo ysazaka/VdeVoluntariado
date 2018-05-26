@@ -13,10 +13,53 @@
         app:titleTextColor="@color/colorWhite"
         />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_manage_participants"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_manage_participants"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <!-- Add participants -->
+            <LinearLayout
+                android:id="@+id/mp_ll_add_participants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_marginTop="15dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    android:src="@mipmap/ic_add"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:text="@string/hint_addParticipants"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

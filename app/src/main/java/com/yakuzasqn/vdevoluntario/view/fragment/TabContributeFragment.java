@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.adapter.PostAdapter;
+import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
@@ -72,10 +73,16 @@ public class TabContributeFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 Post chosenPost = postList.get(position);
                 User chosenPostUser = chosenPost.getUser();
+                Group chosenPostGroup = chosenPost.getGroup();
 
-                if (chosenPostUser != actualUser){
+                if (chosenPostUser != null && chosenPostUser != actualUser){
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenPostUser);
+
+                    startActivity(intent);
+                } else if (chosenPostGroup != null){
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    Hawk.put(Constants.CHOSEN_GROUP_FOR_CHAT, chosenPostGroup);
 
                     startActivity(intent);
                 }

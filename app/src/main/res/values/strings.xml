@@ -76,4 +76,5 @@
     <string name="toast_errorCreatingMessage">Erro ao cadastrar mensagem!</string>
     <string name="toast_errorCreatingChat">Erro ao cadastrar conversa!</string>
     <string name="toast_created">Cadastrado!</string>
+    <string name="toast_needParticipants">Adicione participantes para pertencer ao seu grupo</string>
 </resources>
