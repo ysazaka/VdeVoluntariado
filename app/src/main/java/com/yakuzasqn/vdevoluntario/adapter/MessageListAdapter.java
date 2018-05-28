@@ -13,6 +13,7 @@ import com.glide.slider.library.svg.GlideApp;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.Chat;
+import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.User;
 
 import java.util.Date;
@@ -45,12 +46,22 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
         if (chat != null){
             User user = chat.getChosenUser();
+            Group group = chat.getChosenGroup();
 
-            GlideApp.with(context).load(user.getPicture())
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .into(holder.photo);
+            if (user != null){
+                GlideApp.with(context).load(user.getPicture())
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .into(holder.photo);
 
-            holder.name.setText(user.getName());
+                holder.name.setText(user.getName());
+            } else if (group != null){
+                GlideApp.with(context).load(group.getPicture())
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .into(holder.photo);
+
+                holder.name.setText(group.getName());
+            }
+
         }
         holder.message.setText(chat.getMessage());
         holder.time.setText(lastMessageTime);

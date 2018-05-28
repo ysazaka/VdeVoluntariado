@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.glide.slider.library.svg.GlideApp;
 import com.yakuzasqn.vdevoluntario.R;
+import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
 
@@ -40,11 +41,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull PostAdapter.PostViewHolder holder, int position) {
         Post post = postList.get(position);
         User userFromPost = post.getUser();
+        Group groupFromPost = post.getGroup();
 
-        GlideApp.with(context).load(userFromPost.getPicture())
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(holder.userPhoto);
-        holder.userName.setText(userFromPost.getName());
+        if (userFromPost != null){
+            GlideApp.with(context).load(userFromPost.getPicture())
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(holder.userPhoto);
+            holder.userName.setText(userFromPost.getName());
+        } else if (groupFromPost != null){
+            GlideApp.with(context).load(groupFromPost.getPicture())
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(holder.userPhoto);
+            holder.userName.setText(groupFromPost.getName());
+        }
+
         // Post pode ser criado sem imagem
         if (post.getUrlImage() != null){
             GlideApp.with(context).load(post.getUrlImage())

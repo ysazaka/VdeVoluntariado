@@ -32,6 +32,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
+import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
@@ -41,7 +42,7 @@ import com.yakuzasqn.vdevoluntario.util.Utils;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class CreatePostActivity extends AppCompatActivity  implements Validator.ValidationListener {
+public class CreatePostActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     @Order(1)
     @NotEmpty(message = "Campo obrigatório")
@@ -53,10 +54,11 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
 
     private ImageView postPhoto;
 
-    private String title, description;
+    private String title, description, type;
 
     private Post post;
     private User user;
+    private Group group;
 
     private Validator validator;
     private ProgressDialog dialog;
@@ -74,6 +76,9 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
         Button btnPublish = findViewById(R.id.cp_publish);
 
         user = Hawk.get(Constants.USER_SESSION);
+        group = Hawk.get(Constants.CHOSEN_GROUP);
+
+        type = getIntent().getStringExtra("typeOfPost");
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -170,7 +175,15 @@ public class CreatePostActivity extends AppCompatActivity  implements Validator.
                 post.setUrlImage(downloadUrl.toString());
                 post.setTitle(title);
                 post.setDescription(description);
-                post.setUser(user);
+                post.setType(type);
+                if (type.equals(Constants.OFFER))
+                    post.setUser(user);
+                else if (type.equals(Constants.DEMAND)){
+                    if (group != null)
+                        post.setGroup(group);
+                    else
+                        Utils.showToast("Grupo null", CreatePostActivity.this);
+                }
 
                 createPostDatabase(post);
             }

@@ -75,7 +75,7 @@ public class TabContributeFragment extends Fragment {
                 User chosenPostUser = chosenPost.getUser();
                 Group chosenPostGroup = chosenPost.getGroup();
 
-                if (chosenPostUser != null && chosenPostUser != actualUser){
+                if (chosenPostUser != null && !chosenPostUser.getId().equals(actualUser.getId())){
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenPostUser);
 
@@ -97,7 +97,7 @@ public class TabContributeFragment extends Fragment {
 
         mRef = FirebaseUtils.getBaseRef().child("posts");
         // Cria listener
-        valueEventListenerGroup = new ValueEventListener() {
+        valueEventListenerGroup = mRef.orderByChild("type").equalTo(Constants.OFFER).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Limpar ArrayList de posts
@@ -118,7 +118,7 @@ public class TabContributeFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
                 Utils.showToast(R.string.toast_failLoadingData, getActivity());
             }
-        };
+        });
 
         mRef.addValueEventListener(valueEventListenerGroup);
 

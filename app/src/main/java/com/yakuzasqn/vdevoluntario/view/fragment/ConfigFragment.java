@@ -93,6 +93,7 @@ public class ConfigFragment extends Fragment {
                 break;
             case CREATE_POST_ACTIVITY:
                 intent = new Intent(getActivity(), CreatePostActivity.class);
+                intent.putExtra("typeOfPost", Constants.OFFER);
                 break;
             case LOGIN_ACTIVITY:
                 intent = new Intent(getActivity(), LoginActivity.class);

@@ -18,6 +18,7 @@ import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.adapter.PostAdapter;
 import com.yakuzasqn.vdevoluntario.model.Contact;
+import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
@@ -75,13 +76,21 @@ public class TabOfferFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 Post chosenPost = postList.get(position);
                 User chosenPostUser = chosenPost.getUser();
+                Group chosenPostGroup = chosenPost.getGroup();
 //                Contact contact = new Contact(chosenPostUser.getId(), chosenPostUser.getName(), chosenPostUser.getEmail());
 
-                if (!chosenPostUser.getId().equals(actualUser.getId())){
+                if (chosenPostUser != null && !chosenPostUser.getId().equals(actualUser.getId())){
 //                    createContactDatabase(contact);
 
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenPostUser);
+                    Hawk.delete(Constants.CHOSEN_GROUP_FOR_CHAT);
+
+                    startActivity(intent);
+                } else if (chosenPostGroup != null){
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    Hawk.put(Constants.CHOSEN_GROUP_FOR_CHAT, chosenPostGroup);
+                    Hawk.delete(Constants.CHOSEN_USER_FOR_CHAT);
 
                     startActivity(intent);
                 }
@@ -96,7 +105,8 @@ public class TabOfferFragment extends Fragment {
 
         mRef = FirebaseUtils.getBaseRef().child("posts");
         // Cria listener
-        valueEventListenerGroup = new ValueEventListener() {
+        valueEventListenerGroup = mRef.orderByChild("type").equalTo(Constants.DEMAND).addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Limpar ArrayList de posts
@@ -117,7 +127,7 @@ public class TabOfferFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
                 Utils.showToast(R.string.toast_failLoadingData, getActivity());
             }
-        };
+        });
 
         mRef.addValueEventListener(valueEventListenerGroup);
 

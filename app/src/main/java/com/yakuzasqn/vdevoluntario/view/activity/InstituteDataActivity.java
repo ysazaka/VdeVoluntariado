@@ -96,11 +96,11 @@ public class InstituteDataActivity extends AppCompatActivity {
                 break;
             case Constants.CREATE_POST_OFFER_ACTIVITY:
                 intent = new Intent(InstituteDataActivity.this, CreatePostActivity.class);
-                intent.putExtra("typeOfPost", "OFFER");
+                intent.putExtra("typeOfPost", Constants.OFFER);
                 break;
             case Constants.CREATE_POST_DEMAND_ACTIVITY:
                 intent = new Intent(InstituteDataActivity.this, CreatePostActivity.class);
-                intent.putExtra("typeOfPost", "DEMAND");
+                intent.putExtra("typeOfPost", Constants.DEMAND);
                 break;
             case Constants.CHECK_CHAT_ACTIVITY:
                 intent = new Intent(InstituteDataActivity.this, CheckChatActivity.class);

@@ -80,7 +80,14 @@ public class CheckChatActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 User chosenUser = chatList.get(position).getChosenUser();
-                Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenUser);
+                Group chosenGroup = chatList.get(position).getChosenGroup();
+                if (chosenUser != null){
+                    Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenUser);
+                    Hawk.delete(Constants.CHOSEN_GROUP_FOR_CHAT);
+                } else if (chosenGroup != null){
+                    Hawk.put(Constants.CHOSEN_GROUP_FOR_CHAT, chosenGroup);
+                    Hawk.delete(Constants.CHOSEN_USER_FOR_CHAT);
+                }
 
                 Intent intent = new Intent(CheckChatActivity.this, ChatActivity.class);
                 startActivity(intent);

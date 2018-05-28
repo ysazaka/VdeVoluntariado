@@ -5,6 +5,7 @@ public class Post {
     private String urlImage;
     private String title;
     private String description;
+    private String type;
 
     private User user;
     private Group group;
@@ -12,19 +13,21 @@ public class Post {
     public Post() {
     }
 
-    public Post(String id, String urlImage, String title, String description, User user) {
+    public Post(String id, String urlImage, String title, String description, String type, User user) {
         this.id = id;
         this.urlImage = urlImage;
         this.title = title;
         this.description = description;
+        this.type = type;
         this.user = user;
     }
 
-    public Post(String id, String urlImage, String title, String description, Group group) {
+    public Post(String id, String urlImage, String title, String description, String type, Group group) {
         this.id = id;
         this.urlImage = urlImage;
         this.title = title;
         this.description = description;
+        this.type = type;
         this.group = group;
     }
 
@@ -58,6 +61,14 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public User getUser() {

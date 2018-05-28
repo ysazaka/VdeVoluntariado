@@ -20,6 +20,7 @@ import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.adapter.MessageListAdapter;
 import com.yakuzasqn.vdevoluntario.model.Chat;
+import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
@@ -80,7 +81,14 @@ public class MessageListFragment extends Fragment{
             @Override
             public void onItemClick(View view, int position) {
                 User chosenUser = chatList.get(position).getChosenUser();
-                Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenUser);
+                Group chosenGroup = chatList.get(position).getChosenGroup();
+                if (chosenUser != null){
+                    Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenUser);
+                    Hawk.delete(Constants.CHOSEN_GROUP_FOR_CHAT);
+                } else if (chosenGroup != null){
+                    Hawk.put(Constants.CHOSEN_GROUP_FOR_CHAT, chosenGroup);
+                    Hawk.delete(Constants.CHOSEN_USER_FOR_CHAT);
+                }
 
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 startActivity(intent);

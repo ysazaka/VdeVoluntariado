@@ -8,6 +8,8 @@ public class Constants {
     public static final String CHOSEN_GROUP_FOR_CHAT = "CHOSEN_GROUP_FOR_CHAT";
     public static final String CHOSEN_PARTICIPANTS = "CHOSEN_PARTICIPANTS";
     public static final String CHOSEN_PARTICIPANTS_ID = "CHOSEN_PARTICIPANTS_ID";
+    public static final String OFFER = "OFFER";
+    public static final String DEMAND = "DEMAND";
 
     public static final byte VOLUNTEER = 1;
     public static final byte INSTITUTE = 2;
