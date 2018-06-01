@@ -1,6 +1,5 @@
 package com.yakuzasqn.vdevoluntario.view.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
@@ -43,11 +44,11 @@ public class TabOfferFragment extends Fragment {
 
     private DatabaseReference mRef;
     private ValueEventListener valueEventListenerGroup;
+    private ChildEventListener childEventListener;
 
     public TabOfferFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,20 +78,19 @@ public class TabOfferFragment extends Fragment {
                 Post chosenPost = postList.get(position);
                 User chosenPostUser = chosenPost.getUser();
                 Group chosenPostGroup = chosenPost.getGroup();
-//                Contact contact = new Contact(chosenPostUser.getId(), chosenPostUser.getName(), chosenPostUser.getEmail());
 
                 if (chosenPostUser != null && !chosenPostUser.getId().equals(actualUser.getId())){
-//                    createContactDatabase(contact);
-
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenPostUser);
                     Hawk.delete(Constants.CHOSEN_GROUP_FOR_CHAT);
+                    Hawk.delete(Constants.CHOSEN_GROUP);
 
                     startActivity(intent);
                 } else if (chosenPostGroup != null){
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Hawk.put(Constants.CHOSEN_GROUP_FOR_CHAT, chosenPostGroup);
                     Hawk.delete(Constants.CHOSEN_USER_FOR_CHAT);
+                    Hawk.delete(Constants.CHOSEN_GROUP);
 
                     startActivity(intent);
                 }
@@ -104,19 +104,15 @@ public class TabOfferFragment extends Fragment {
          ****************************************************************/
 
         mRef = FirebaseUtils.getBaseRef().child("posts");
+        Query queryRef = mRef.orderByChild("type").equalTo(Constants.DEMAND);
         // Cria listener
-        valueEventListenerGroup = mRef.orderByChild("type").equalTo(Constants.DEMAND).addValueEventListener(new ValueEventListener() {
-
+        childEventListener = queryRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Limpar ArrayList de posts
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 postList.clear();
 
-                // Recuperar posts
-                for (DataSnapshot dados: dataSnapshot.getChildren()){
-                    Post post = dados.getValue(Post.class);
-                    postList.add(post);
-                }
+                Post post = dataSnapshot.getValue(Post.class);
+                postList.add(post);
 
                 adapter = new PostAdapter(getContext(), postList);
                 adapter.notifyDataSetChanged();
@@ -124,38 +120,70 @@ public class TabOfferFragment extends Fragment {
             }
 
             @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
             public void onCancelled(DatabaseError databaseError) {
                 Utils.showToast(R.string.toast_failLoadingData, getActivity());
             }
+
+
         });
 
-        mRef.addValueEventListener(valueEventListenerGroup);
+        mRef.addChildEventListener(childEventListener);
+//        valueEventListenerGroup = queryRef.addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Limpar ArrayList de posts
+//                postList.clear();
+//
+//                // Recuperar posts
+//                for (DataSnapshot dados: dataSnapshot.getChildren()){
+//                    Post post = dados.getValue(Post.class);
+//                    postList.add(post);
+//                }
+//
+//                adapter = new PostAdapter(getContext(), postList);
+//                adapter.notifyDataSetChanged();
+//                rvOffer.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Utils.showToast(R.string.toast_failLoadingData, getActivity());
+//            }
+//        });
+//
+//        mRef.addValueEventListener(valueEventListenerGroup);
 
         return v;
-    }
-
-    private void createContactDatabase(Contact contact){
-        try{
-            DatabaseReference mRef = FirebaseUtils.getBaseRef().child("contacts");
-
-            mRef.child(actualUser.getId()).child(contact.getId()).setValue(contact);
-
-        } catch(Exception e){
-            Utils.showToast(R.string.toast_errorCreatingContact, getActivity());
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mRef.addValueEventListener(valueEventListenerGroup);
+//        mRef.addValueEventListener(valueEventListenerGroup);
+        mRef.addChildEventListener(childEventListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mRef.removeEventListener(valueEventListenerGroup);
+//        mRef.removeEventListener(valueEventListenerGroup);
+        mRef.removeEventListener(childEventListener);
     }
 
 }

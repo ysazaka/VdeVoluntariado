@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
@@ -78,11 +79,15 @@ public class TabContributeFragment extends Fragment {
                 if (chosenPostUser != null && !chosenPostUser.getId().equals(actualUser.getId())){
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenPostUser);
+                    Hawk.delete(Constants.CHOSEN_GROUP_FOR_CHAT);
+                    Hawk.delete(Constants.CHOSEN_GROUP);
 
                     startActivity(intent);
                 } else if (chosenPostGroup != null){
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Hawk.put(Constants.CHOSEN_GROUP_FOR_CHAT, chosenPostGroup);
+                    Hawk.delete(Constants.CHOSEN_USER_FOR_CHAT);
+                    Hawk.delete(Constants.CHOSEN_GROUP);
 
                     startActivity(intent);
                 }
@@ -96,8 +101,9 @@ public class TabContributeFragment extends Fragment {
          ****************************************************************/
 
         mRef = FirebaseUtils.getBaseRef().child("posts");
+        Query queryRef = mRef.orderByChild("type").equalTo(Constants.OFFER);
         // Cria listener
-        valueEventListenerGroup = mRef.orderByChild("type").equalTo(Constants.OFFER).addValueEventListener(new ValueEventListener() {
+        valueEventListenerGroup = queryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Limpar ArrayList de posts

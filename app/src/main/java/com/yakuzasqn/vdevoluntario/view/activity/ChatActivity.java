@@ -44,9 +44,9 @@ public class ChatActivity extends AppCompatActivity  implements
 
     private List<Message> msgList;
 
-    // Destinatário = chosenUser | Remetente = user
-    private User user, chosenUser;
-    private Group chosenGroup;
+    // Destinatário = chosenUser | Remetente = actualUser
+    private User actualUser, chosenUser;
+    private Group actualGroup, chosenGroup;
     private Message msg;
 
     private Chat chat;
@@ -67,7 +67,8 @@ public class ChatActivity extends AppCompatActivity  implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        user = Hawk.get(Constants.USER_SESSION);
+        actualUser = Hawk.get(Constants.USER_SESSION);
+        actualGroup = Hawk.get(Constants.CHOSEN_GROUP);
         chosenUser = Hawk.get(Constants.CHOSEN_USER_FOR_CHAT);
         chosenGroup = Hawk.get(Constants.CHOSEN_GROUP_FOR_CHAT);
 
@@ -114,8 +115,17 @@ public class ChatActivity extends AppCompatActivity  implements
     @Override
     public boolean onSubmit(CharSequence input) {
         String str = StringEscapeUtils.escapeJava(input.toString());
-        String userId = user.getId();
-        msg = new Message(userId, str, Calendar.getInstance().getTime(), chosenUser);
+
+        String senderId = null;
+        if (actualGroup != null)
+            senderId = actualGroup.getId();
+        else if (actualUser != null)
+            senderId = actualUser.getId();
+
+        if (chosenGroup != null)
+            msg = new Message(senderId, str, Calendar.getInstance().getTime(), chosenGroup);
+        else if (chosenUser != null)
+            msg = new Message(senderId, str, Calendar.getInstance().getTime(), chosenUser);
         adapter.addToStart(msg, true);
 
         createMessageDatabase(msg);
@@ -131,10 +141,14 @@ public class ChatActivity extends AppCompatActivity  implements
     private void loadMessages(){
         final DisplayMetrics metrics = getResources().getDisplayMetrics();
 
-        if (chosenUser != null)
-            mRef = FirebaseUtils.getBaseRef().child("messages").child(user.getId()).child(chosenUser.getId());
+        if (chosenUser != null && actualGroup != null)
+            mRef = FirebaseUtils.getBaseRef().child("messages").child(actualGroup.getId()).child(chosenUser.getId());
+        else if (chosenUser != null)
+            mRef = FirebaseUtils.getBaseRef().child("messages").child(actualUser.getId()).child(chosenUser.getId());
+        else if (chosenGroup != null && actualGroup != null)
+            mRef = FirebaseUtils.getBaseRef().child("messages").child(actualGroup.getId()).child(chosenGroup.getId());
         else if (chosenGroup != null)
-            mRef = FirebaseUtils.getBaseRef().child("messages").child(user.getId()).child(chosenGroup.getId());
+            mRef = FirebaseUtils.getBaseRef().child("messages").child(actualUser.getId()).child(chosenGroup.getId());
         // Cria listener
         valueEventListenerMensagem = new ValueEventListener() {
             @Override
@@ -162,7 +176,7 @@ public class ChatActivity extends AppCompatActivity  implements
                 }
 
                 if (msgList != null && !msgList.isEmpty()){
-                    adapter.addToEnd(msgList, false);
+                    adapter.addToEnd(msgList, true);
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -209,7 +223,7 @@ public class ChatActivity extends AppCompatActivity  implements
     }
 
     private void initAdapter(){
-        adapter = new MessagesListAdapter<>(user.getId(), new MessageHolders(), null);
+        adapter = new MessagesListAdapter<>(actualUser.getId(), new MessageHolders(), null);
         adapter.setLoadMoreListener(this);
         messagesList.setAdapter(adapter);
     }
@@ -222,15 +236,25 @@ public class ChatActivity extends AppCompatActivity  implements
             message.setId(key);
 
             if (chosenUser != null){
-                mRef.child(user.getId()).child(chosenUser.getId()).child(key).setValue(message);
-                mRef.child(chosenUser.getId()).child(user.getId()).child(key).setValue(message);
+                if (actualGroup != null){
+                    mRef.child(actualGroup.getId()).child(chosenUser.getId()).child(key).setValue(message);
+                    mRef.child(chosenUser.getId()).child(actualGroup.getId()).child(key).setValue(message);
+                } else if (actualUser != null){
+                    mRef.child(actualUser.getId()).child(chosenUser.getId()).child(key).setValue(message);
+                    mRef.child(chosenUser.getId()).child(actualUser.getId()).child(key).setValue(message);
+                }
             } else if (chosenGroup != null){
-                mRef.child(user.getId()).child(chosenGroup.getId()).child(key).setValue(message);
-                mRef.child(chosenGroup.getId()).child(user.getId()).child(key).setValue(message);
+                if (actualGroup != null){
+                    mRef.child(actualGroup.getId()).child(chosenGroup.getId()).child(key).setValue(message);
+                    mRef.child(chosenGroup.getId()).child(actualGroup.getId()).child(key).setValue(message);
+                } else if (actualUser != null) {
+                    mRef.child(actualUser.getId()).child(chosenGroup.getId()).child(key).setValue(message);
+                    mRef.child(chosenGroup.getId()).child(actualUser.getId()).child(key).setValue(message);
+                }
             }
 
-//            mRef.child(user.getId()).child(chosenUser.getId()).setValue(message);
-//            mRef.child(chosenUser.getId()).child(user.getId()).setValue(message);
+//            mRef.child(actualUser.getId()).child(chosenUser.getId()).setValue(message);
+//            mRef.child(chosenUser.getId()).child(actualUser.getId()).setValue(message);
 
             saveChatForBothUsers();
         } catch(Exception e){
@@ -241,33 +265,65 @@ public class ChatActivity extends AppCompatActivity  implements
 
     private void saveChatForBothUsers(){
         if (chosenUser != null){
-            // Save the chat to actual user
-            chat = new Chat();
-            chat.setChosenUser(chosenUser);
-            chat.setMessage(msg.getText());
-            chat.setCreatedAt(msg.getCreatedAt());
-            saveChatDatabase(chat, user.getId(), chosenUser.getId());
+            if (actualGroup != null){
+                // Save the chat to actual actualGroup
+                chat = new Chat();
+                chat.setChosenUser(chosenUser);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, actualGroup.getId(), chosenUser.getId());
 
-            // Save the chat to destiny user
-            chat = new Chat();
-            chat.setChosenUser(user);
-            chat.setMessage(msg.getText());
-            chat.setCreatedAt(msg.getCreatedAt());
-            saveChatDatabase(chat, chosenUser.getId(), user.getId());
+                // Save the chat to destiny actualGroup
+                chat = new Chat();
+                chat.setChosenGroup(actualGroup);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, chosenUser.getId(), actualGroup.getId());
+            } else if (actualUser != null){
+                // Save the chat to actual actualUser
+                chat = new Chat();
+                chat.setChosenUser(chosenUser);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, actualUser.getId(), chosenUser.getId());
+
+                // Save the chat to destiny actualUser
+                chat = new Chat();
+                chat.setChosenUser(actualUser);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, chosenUser.getId(), actualUser.getId());
+            }
         } else if (chosenGroup != null){
-            // Save the chat to actual user
-            chat = new Chat();
-            chat.setChosenGroup(chosenGroup);
-            chat.setMessage(msg.getText());
-            chat.setCreatedAt(msg.getCreatedAt());
-            saveChatDatabase(chat, user.getId(), chosenGroup.getId());
+            if (actualGroup != null){
+                // Save the chat to actual actualGroup
+                chat = new Chat();
+                chat.setChosenGroup(chosenGroup);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, actualGroup.getId(), chosenGroup.getId());
 
-            // Save the chat to destiny user
-            chat = new Chat();
-            chat.setChosenUser(user);
-            chat.setMessage(msg.getText());
-            chat.setCreatedAt(msg.getCreatedAt());
-            saveChatDatabase(chat, chosenGroup.getId(), user.getId());
+                // Save the chat to destiny actualGroup
+                chat = new Chat();
+                chat.setChosenGroup(actualGroup);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, chosenGroup.getId(), actualGroup.getId());
+            } else if (actualUser != null){
+                // Save the chat to actual actualUser
+                chat = new Chat();
+                chat.setChosenGroup(chosenGroup);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, actualUser.getId(), chosenGroup.getId());
+
+                // Save the chat to destiny actualUser
+                chat = new Chat();
+                chat.setChosenUser(actualUser);
+                chat.setMessage(msg.getText());
+                chat.setCreatedAt(msg.getCreatedAt());
+                saveChatDatabase(chat, chosenGroup.getId(), actualUser.getId());
+            }
         }
     }
 

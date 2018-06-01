@@ -66,8 +66,8 @@ public class Message implements IMessage{
         return userChatWith;
     }
 
-    public Message(Group groupChatWith) {
-        this.groupChatWith = groupChatWith;
+    public Group getGroupChatWith() {
+        return groupChatWith;
     }
 
     /** Setters */

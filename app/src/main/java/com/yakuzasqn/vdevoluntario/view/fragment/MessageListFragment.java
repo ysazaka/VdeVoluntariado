@@ -85,9 +85,11 @@ public class MessageListFragment extends Fragment{
                 if (chosenUser != null){
                     Hawk.put(Constants.CHOSEN_USER_FOR_CHAT, chosenUser);
                     Hawk.delete(Constants.CHOSEN_GROUP_FOR_CHAT);
+                    Hawk.delete(Constants.CHOSEN_GROUP);
                 } else if (chosenGroup != null){
                     Hawk.put(Constants.CHOSEN_GROUP_FOR_CHAT, chosenGroup);
                     Hawk.delete(Constants.CHOSEN_USER_FOR_CHAT);
+                    Hawk.delete(Constants.CHOSEN_GROUP);
                 }
 
                 Intent intent = new Intent(getActivity(), ChatActivity.class);

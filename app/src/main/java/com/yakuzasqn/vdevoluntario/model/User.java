@@ -66,6 +66,10 @@ public class User implements IUser{
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setPicture(String picture) {
         this.picture = picture;
     }
@@ -73,10 +77,6 @@ public class User implements IUser{
     @Override
     public String getPicture() {
         return picture;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {

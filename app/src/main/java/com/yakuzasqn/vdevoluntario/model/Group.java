@@ -1,8 +1,11 @@
 package com.yakuzasqn.vdevoluntario.model;
 
+import com.google.firebase.database.Exclude;
+import com.stfalcon.chatkit.commons.models.IUser;
+
 import java.util.List;
 
-public class Group {
+public class Group implements IUser {
     private String id;
     private String name;
     private String adress;
@@ -49,7 +52,7 @@ public class Group {
         this.participantsId = participantsId;
     }
 
-
+    @Override
     public String getId() {
         return id;
     }
@@ -98,6 +101,7 @@ public class Group {
         this.area = area;
     }
 
+    @Override
     public String getPicture() {
         return picture;
     }
@@ -106,10 +110,12 @@ public class Group {
         this.picture = picture;
     }
 
+    @Exclude
     public void setPictures(List<String> pictures) {
         this.pictures = pictures;
     }
 
+    @Exclude
     public List<String> getPictures() {
         return pictures;
     }
