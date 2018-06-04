@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,9 +40,6 @@ public class TabContributeFragment extends Fragment {
     private RecyclerView.OnItemTouchListener listener;
 
     private User actualUser;
-
-    private DatabaseReference mRef;
-    private ValueEventListener valueEventListenerGroup;
 
     public TabContributeFragment() {
         // Required empty public constructor
@@ -94,53 +92,36 @@ public class TabContributeFragment extends Fragment {
             }
         });
 
-//        rvContribute.addOnItemTouchListener(listener);
+        rvContribute.addOnItemTouchListener(listener);
 
         /***************************************************************
          Recuperar dados do Firebase
          ****************************************************************/
 
-        mRef = FirebaseUtils.getBaseRef().child("posts");
-        Query queryRef = mRef.orderByChild("type").equalTo(Constants.OFFER);
-        // Cria listener
-        valueEventListenerGroup = queryRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference mRef = FirebaseUtils.getBaseRef().child("posts");
+        Query queryRef = mRef.orderByChild("type").equalTo(Constants.DEMAND);
+        queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Limpar ArrayList de posts
                 postList.clear();
 
-                // Recuperar posts
                 for (DataSnapshot dados: dataSnapshot.getChildren()){
                     Post post = dados.getValue(Post.class);
                     postList.add(post);
                 }
 
                 adapter = new PostAdapter(getContext(), postList);
-                adapter.notifyDataSetChanged();
                 rvContribute.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Utils.showToast(R.string.toast_failLoadingData, getActivity());
+
             }
         });
 
-        mRef.addValueEventListener(valueEventListenerGroup);
-
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mRef.addValueEventListener(valueEventListenerGroup);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mRef.removeEventListener(valueEventListenerGroup);
     }
 
 }

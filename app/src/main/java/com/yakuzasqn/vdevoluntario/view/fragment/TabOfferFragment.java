@@ -42,10 +42,6 @@ public class TabOfferFragment extends Fragment {
 
     private User actualUser;
 
-    private DatabaseReference mRef;
-    private ValueEventListener valueEventListenerGroup;
-    private ChildEventListener childEventListener;
-
     public TabOfferFragment() {
         // Required empty public constructor
     }
@@ -103,87 +99,30 @@ public class TabOfferFragment extends Fragment {
          Recuperar dados do Firebase
          ****************************************************************/
 
-        mRef = FirebaseUtils.getBaseRef().child("posts");
-        Query queryRef = mRef.orderByChild("type").equalTo(Constants.DEMAND);
-        // Cria listener
-        childEventListener = queryRef.addChildEventListener(new ChildEventListener() {
+        DatabaseReference mRef = FirebaseUtils.getBaseRef().child("posts");
+        Query queryRef = mRef.orderByChild("type").equalTo(Constants.OFFER);
+        queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 postList.clear();
 
-                Post post = dataSnapshot.getValue(Post.class);
-                postList.add(post);
+                for (DataSnapshot dados: dataSnapshot.getChildren()){
+                    Post post = dados.getValue(Post.class);
+                    postList.add(post);
+                }
 
                 adapter = new PostAdapter(getContext(), postList);
-                adapter.notifyDataSetChanged();
                 rvOffer.setAdapter(adapter);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Utils.showToast(R.string.toast_failLoadingData, getActivity());
             }
-
-
         });
 
-        mRef.addChildEventListener(childEventListener);
-//        valueEventListenerGroup = queryRef.addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Limpar ArrayList de posts
-//                postList.clear();
-//
-//                // Recuperar posts
-//                for (DataSnapshot dados: dataSnapshot.getChildren()){
-//                    Post post = dados.getValue(Post.class);
-//                    postList.add(post);
-//                }
-//
-//                adapter = new PostAdapter(getContext(), postList);
-//                adapter.notifyDataSetChanged();
-//                rvOffer.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Utils.showToast(R.string.toast_failLoadingData, getActivity());
-//            }
-//        });
-//
-//        mRef.addValueEventListener(valueEventListenerGroup);
-
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-//        mRef.addValueEventListener(valueEventListenerGroup);
-        mRef.addChildEventListener(childEventListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-//        mRef.removeEventListener(valueEventListenerGroup);
-        mRef.removeEventListener(childEventListener);
     }
 
 }

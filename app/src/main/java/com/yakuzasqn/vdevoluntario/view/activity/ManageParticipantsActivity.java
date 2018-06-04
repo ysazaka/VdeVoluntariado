@@ -53,6 +53,13 @@ public class ManageParticipantsActivity extends AppCompatActivity {
 
         setupRecycle();
         getParticipantsFromFirebase();
+
+        llAddParticipants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     // Corrigir comportamento da seta de voltar - Toolbar customizada
