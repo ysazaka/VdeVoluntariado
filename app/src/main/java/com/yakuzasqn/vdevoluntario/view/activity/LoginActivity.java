@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,13 +48,17 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = ProgressDialog.show(LoginActivity.this, "", "Fazendo login, aguarde...", true);
+                if (!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")){
+                    dialog = ProgressDialog.show(LoginActivity.this, "", "Fazendo login, aguarde...", true);
 
-                user = new User();
-                user.setEmail(etEmail.getText().toString());
-                user.setPassword(etPassword.getText().toString());
+                    user = new User();
+                    user.setEmail(etEmail.getText().toString());
+                    user.setPassword(etPassword.getText().toString());
 
-                validateLogin(user);
+                    validateLogin(user);
+                } else {
+                    Utils.showToast("Preencha todos os oampos", LoginActivity.this);
+                }
             }
         });
 

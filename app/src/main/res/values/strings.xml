@@ -22,8 +22,8 @@
     <string name="snackbar_sendEmailFail">Falha ao enviar e-mail</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tab_contribute">Contribuir</string>
-    <string name="tab_oferecer">Oferecer</string>
+    <string name="tab_contribute">Pedidos</string>
+    <string name="tab_oferecer">Ofertas</string>
     <string name="example_volName">Wesley Chan</string>
     <string name="example_postTitle">Campanha do Agasalho</string>
     <string name="example_postDescription">Que tal doar suas roupas boas e fazer alguém feliz com a sua doação?</string>
@@ -77,4 +77,5 @@
     <string name="toast_errorCreatingChat">Erro ao cadastrar conversa!</string>
     <string name="toast_created">Cadastrado!</string>
     <string name="toast_needParticipants">Adicione participantes para pertencer ao seu grupo</string>
+    <string name="toast_selfpost">Esta é a sua própria postagem</string>
 </resources>

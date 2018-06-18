@@ -89,6 +89,8 @@ public class TabOfferFragment extends Fragment {
                     Hawk.delete(Constants.CHOSEN_GROUP);
 
                     startActivity(intent);
+                } else {
+                    Utils.showToast(R.string.toast_selfpost, getActivity());
                 }
             }
         });
