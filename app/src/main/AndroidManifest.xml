@@ -46,10 +46,6 @@
             android:noHistory="true" />
         <activity android:name=".view.activity.MainActivity" />
         <activity
-            android:name=".view.activity.UserDataActivity"
-            android:noHistory="true"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
             android:name=".view.activity.CreatePostActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -61,7 +57,8 @@
         <activity android:name=".view.activity.CreateInstituteActivity" />
         <activity
             android:name=".view.activity.UpdateUserActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleInstance"/>
         <activity android:name=".view.activity.InstituteDataActivity" />
         <activity android:name=".view.activity.CheckInstituteActivity"
             android:windowSoftInputMode="stateHidden"/>

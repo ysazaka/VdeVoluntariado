@@ -29,6 +29,7 @@
     <string name="example_postDescription">Que tal doar suas roupas boas e fazer alguém feliz com a sua doação?</string>
     <string name="example_msg">Olá Ted! Gostaria de contribuir com a sua causa, já que blablabla</string>
     <string name="btn_createOffer">Criar oferta voluntária</string>
+    <string name="btn_showOffer">Editar oferta voluntária</string>
     <string name="dialog_chooseProfilePhoto">Escolha a sua foto de perfil</string>
     <string name="dialog_chooseProfilePhotoInstitute">Escolha a foto de perfil</string>
     <string name="dialog_chooseArea">Escolha uma área de atuação</string>
@@ -50,6 +51,7 @@
     <string name="hint_actualPassword">Senha atual</string>
     <string name="hint_newPassword">Nova senha</string>
     <string name="hint_confirmPassword">Confirme sua nova senha</string>
+    <string name="toast_emptyName">Preencha o campo nome</string>
     <string name="toast_sameName">Nome digitado é igual ao cadastrado</string>
     <string name="toast_diferentActualPassword">Senha atual difere da cadastrada</string>
     <string name="toast_diferentConfirmationPassword">Nova senha difere da senha de confirmação</string>

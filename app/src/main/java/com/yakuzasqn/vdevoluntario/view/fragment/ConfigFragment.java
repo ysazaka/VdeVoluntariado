@@ -19,7 +19,7 @@ import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.view.activity.CreatePostActivity;
 import com.yakuzasqn.vdevoluntario.view.activity.LoginActivity;
-import com.yakuzasqn.vdevoluntario.view.activity.UserDataActivity;
+import com.yakuzasqn.vdevoluntario.view.activity.UpdateUserActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -88,7 +88,7 @@ public class ConfigFragment extends Fragment {
 
         switch (activityName){
             case USER_DATA_ACTIVITY:
-                intent = new Intent(getActivity(), UserDataActivity.class);
+                intent = new Intent(getActivity(), UpdateUserActivity.class);
                 startActivityForResult(intent, Constants.REQUEST_CODE_MAIN);
                 break;
             case CREATE_POST_ACTIVITY:

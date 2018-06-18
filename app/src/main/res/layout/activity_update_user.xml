@@ -14,67 +14,83 @@
         app:titleTextColor="@color/colorWhite"
         />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:orientation="vertical"
         >
 
-        <EditText
-            android:id="@+id/up_et_new_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_newName"
-            android:layout_marginTop="25dp"
-            android:inputType="textCapWords"
-            android:minLines="1"
-            android:maxLines="1"
-            />
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="vertical"
+            >
 
-        <EditText
-            android:id="@+id/up_et_actual_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_actualPassword"
-            android:layout_marginTop="25dp"
-            android:inputType="textPassword"
-            android:minLines="1"
-            android:maxLines="1"
-            />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/up_photo"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                />
 
-        <EditText
-            android:id="@+id/up_et_new_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_newPassword"
-            android:layout_marginTop="5dp"
-            android:inputType="textPassword"
-            android:minLines="1"
-            android:maxLines="1"
-            />
+            <EditText
+                android:id="@+id/up_et_new_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_newName"
+                android:layout_marginTop="25dp"
+                android:inputType="textCapWords"
+                android:minLines="1"
+                android:maxLines="1"
+                />
 
-        <EditText
-            android:id="@+id/up_et_confirm_new_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_confirmPassword"
-            android:layout_marginTop="5dp"
-            android:inputType="textPassword"
-            android:minLines="1"
-            android:maxLines="1"
-            />
+            <EditText
+                android:id="@+id/up_et_actual_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_actualPassword"
+                android:layout_marginTop="25dp"
+                android:inputType="textPassword"
+                android:minLines="1"
+                android:maxLines="1"
+                />
 
-        <Button
-            android:id="@+id/up_btn_update"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_update"
-            style="@style/ButtonStyle"
-            android:layout_marginTop="50dp"
-            />
+            <EditText
+                android:id="@+id/up_et_new_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_newPassword"
+                android:layout_marginTop="5dp"
+                android:inputType="textPassword"
+                android:minLines="1"
+                android:maxLines="1"
+                />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/up_et_confirm_new_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_confirmPassword"
+                android:layout_marginTop="5dp"
+                android:inputType="textPassword"
+                android:minLines="1"
+                android:maxLines="1"
+                />
+
+            <Button
+                android:id="@+id/up_btn_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_update"
+                style="@style/ButtonStyle"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="25dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
