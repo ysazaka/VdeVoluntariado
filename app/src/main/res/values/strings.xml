@@ -33,7 +33,7 @@
     <string name="dialog_chooseProfilePhoto">Escolha a sua foto de perfil</string>
     <string name="dialog_chooseProfilePhotoInstitute">Escolha a foto de perfil</string>
     <string name="dialog_chooseArea">Escolha uma área de atuação</string>
-    <string name="new_institute">Nova instituição</string>
+    <string name="new_group">Novo grupo</string>
     <string name="example_institute">Wong Fu Productions</string>
     <string name="example_volunteer">Wesley Chan</string>
     <string name="hint_instituteName">Nome da instituição</string>
@@ -72,7 +72,7 @@
     <string name="hint_typeYourMessage">Digite sua mensagem..</string>
     <string name="toast_failLoadingData">Falha ao carregar os dados!</string>
     <string name="no_results">Nenhum resultado encontrado.</string>
-    <string name="progressbar_no_results">Nenhum resultado foi encontrado. Inicie uma conversa com alguém através das postagens</string>
+    <string name="progressbar_no_results">Nenhum resultado foi encontrado.\n Inicie uma conversa com alguém através das postagens</string>
     <string name="example_hour">11:45</string>
     <string name="toast_errorCreatingContact">Erro ao gravar contato!</string>
     <string name="toast_errorCreatingMessage">Erro ao cadastrar mensagem!</string>
@@ -81,4 +81,7 @@
     <string name="toast_needParticipants">Adicione participantes para pertencer ao seu grupo</string>
     <string name="toast_selfpost">Esta é a sua própria postagem</string>
     <string name="new_post">Nova postagem</string>
+    <string name="data_notFound">Nenhum dado encontrado</string>
+    <string name="group_notFound">Nenhum grupo encontrado.</string>
+    <string name="post_notFound">Nenhuma postagem encontrada.</string>
 </resources>

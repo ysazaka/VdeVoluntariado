@@ -118,11 +118,11 @@ public class MessageListFragment extends Fragment{
                 }
 
                 if (chatList.size() == 0){
-                    rv.setVisibility(View.INVISIBLE);
+                    rv.setVisibility(View.GONE);
                     tv_no_results.setVisibility(View.VISIBLE);
                 } else {
                     rv.setVisibility(View.VISIBLE);
-                    tv_no_results.setVisibility(View.INVISIBLE);
+                    tv_no_results.setVisibility(View.GONE);
 
                     MessageListAdapter adapter = new MessageListAdapter(getContext(), chatList);
                     rv.setAdapter(adapter);

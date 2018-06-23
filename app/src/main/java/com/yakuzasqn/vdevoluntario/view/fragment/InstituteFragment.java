@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +43,7 @@ public class InstituteFragment extends Fragment {
     private List<Group> groupList;
     private InstituteAdapter adapter;
     private RecyclerView.OnItemTouchListener listener;
+    private TextView tvNotFound;
 
     public InstituteFragment() {
         // Required empty public constructor
@@ -65,6 +67,7 @@ public class InstituteFragment extends Fragment {
          Montagem do RecyclerView e do Adapter
          ****************************************************************/
 
+        tvNotFound = v.findViewById(R.id.tv_not_found_i);
         groupList = new ArrayList<>();
 
         final RecyclerView rvInstitute = v.findViewById(R.id.rv_institute);
@@ -110,6 +113,13 @@ public class InstituteFragment extends Fragment {
                 adapter = new InstituteAdapter(getActivity(), groupList);
                 rvInstitute.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                if (groupList.size() > 0) {
+                    rvInstitute.setVisibility(View.VISIBLE);
+                    tvNotFound.setVisibility(View.GONE);
+                } else {
+                    rvInstitute.setVisibility(View.GONE);
+                    tvNotFound.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

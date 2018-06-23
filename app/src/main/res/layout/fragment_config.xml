@@ -120,8 +120,8 @@
             android:layout_height="wrap_content"
             android:text="Sair da conta"
             android:textColor="@color/colorPomegranate"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginStart="15dp"
             />
 

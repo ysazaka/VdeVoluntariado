@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.adapter.PostAdapter;
-import com.yakuzasqn.vdevoluntario.model.Contact;
 import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
@@ -39,6 +38,7 @@ public class TabOfferFragment extends Fragment {
     private List<Post> postList;
     private PostAdapter adapter;
     private RecyclerView.OnItemTouchListener listener;
+    private TextView tvNotFound;
 
     private User actualUser;
 
@@ -58,6 +58,7 @@ public class TabOfferFragment extends Fragment {
          Montagem do RecyclerView e do Adapter
          ****************************************************************/
 
+        tvNotFound = v.findViewById(R.id.tv_not_found_o);
         postList = new ArrayList<>();
 
         final RecyclerView rvOffer = v.findViewById(R.id.rv_offer);
@@ -116,6 +117,14 @@ public class TabOfferFragment extends Fragment {
                 adapter = new PostAdapter(getContext(), postList);
                 rvOffer.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
+                if (postList.size() > 0) {
+                    rvOffer.setVisibility(View.VISIBLE);
+                    tvNotFound.setVisibility(View.GONE);
+                } else {
+                    rvOffer.setVisibility(View.GONE);
+                    tvNotFound.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

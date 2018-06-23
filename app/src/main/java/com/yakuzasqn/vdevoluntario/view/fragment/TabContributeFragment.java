@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +39,7 @@ public class TabContributeFragment extends Fragment {
     private List<Post> postList;
     private PostAdapter adapter;
     private RecyclerView.OnItemTouchListener listener;
+    private TextView tvNotFound;
 
     private User actualUser;
 
@@ -57,6 +59,7 @@ public class TabContributeFragment extends Fragment {
          Montagem do RecyclerView e do Adapter
          ****************************************************************/
 
+        tvNotFound = v.findViewById(R.id.tv_not_found_c);
         postList = new ArrayList<>();
 
         final RecyclerView rvContribute = v.findViewById(R.id.rv_contribute);
@@ -115,6 +118,14 @@ public class TabContributeFragment extends Fragment {
                 adapter = new PostAdapter(getContext(), postList);
                 rvContribute.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
+                if (postList.size() > 0) {
+                    rvContribute.setVisibility(View.VISIBLE);
+                    tvNotFound.setVisibility(View.GONE);
+                } else {
+                    rvContribute.setVisibility(View.GONE);
+                    tvNotFound.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

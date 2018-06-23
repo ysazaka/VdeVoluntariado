@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +37,7 @@ public class ManagePostActivity extends AppCompatActivity {
     private List<Post> postList;
     private RecyclerView.OnItemTouchListener listener;
     private MyPostAdapter adapter;
+    private TextView tvNotFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class ManagePostActivity extends AppCompatActivity {
          Montagem do RecyclerView e do Adapter
          ****************************************************************/
 
+        tvNotFound = findViewById(R.id.tv_not_found_mp);
         postList = new ArrayList<>();
 
         final RecyclerView rvMyPost = findViewById(R.id.rv_my_post);
@@ -98,6 +101,13 @@ public class ManagePostActivity extends AppCompatActivity {
                 adapter = new MyPostAdapter(ManagePostActivity.this, postList);
                 rvMyPost.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                if (postList.size() > 0) {
+                    rvMyPost.setVisibility(View.VISIBLE);
+                    tvNotFound.setVisibility(View.GONE);
+                } else {
+                    rvMyPost.setVisibility(View.GONE);
+                    tvNotFound.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

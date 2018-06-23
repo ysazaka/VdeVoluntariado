@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/new_institute"
+            android:text="@string/new_group"
             android:textSize="18sp"
             android:textColor="@color/colorPrimary"
             android:gravity="end"
@@ -28,5 +28,16 @@
         android:id="@+id/rv_institute"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_not_found_i"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/group_notFound"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="gone"
+        />
 
 </LinearLayout>

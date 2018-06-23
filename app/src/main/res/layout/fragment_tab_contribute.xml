@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_no_results"
+        android:id="@+id/tv_not_found_c"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/no_results"
+        android:text="@string/data_notFound"
         android:textColor="@color/colorBlack"
         android:textSize="18sp"
         android:gravity="center"
