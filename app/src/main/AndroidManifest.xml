@@ -57,14 +57,16 @@
         <activity android:name=".view.activity.CreateInstituteActivity" />
         <activity
             android:name=".view.activity.UpdateUserActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".view.activity.InstituteDataActivity" />
-        <activity android:name=".view.activity.CheckInstituteActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.activity.CheckInstituteActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".view.activity.CheckChatActivity" />
         <activity android:name=".view.activity.ManageParticipantsActivity" />
-        <activity android:name=".view.activity.ChooseParticipantsActivity"/>
+        <activity android:name=".view.activity.ChooseParticipantsActivity" />
+        <activity android:name=".view.activity.ManagePostActivity"></activity>
     </application>
 
 </manifest>

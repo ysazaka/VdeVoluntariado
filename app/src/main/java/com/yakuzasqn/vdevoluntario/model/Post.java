@@ -9,6 +9,7 @@ public class Post {
 
     private User user;
     private Group group;
+    private String creatorId;
 
     public Post() {
     }
@@ -85,5 +86,13 @@ public class Post {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 }

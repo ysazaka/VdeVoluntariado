@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setAuthStateListener(){
-        dialog = ProgressDialog.show(MainActivity.this, "", "Carregando, aguarde...", true);
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -134,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                    dialog = ProgressDialog.show(MainActivity.this, "", "Carregando, aguarde...", true);
                     User user1 = userSnapshot.getValue(User.class);
                     userPhoto = user1.getPicture();
                     user.setPicture(userPhoto);

@@ -1,6 +1,7 @@
 package com.yakuzasqn.vdevoluntario.view.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -71,6 +72,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
     private Button btnSignUp;
 
     private Validator validator;
+    private ProgressDialog dialog;
 
     private User user;
 
@@ -163,6 +165,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
     }
 
     private void uploadProfilePhoto(){
+        dialog = ProgressDialog.show(CreateAccountActivity.this, "", "Fazendo upload da foto, aguarde...", true);
         StorageReference mStoreRef = FirebaseUtils.getFirebaseStorageReference()
                 .child("userProfilePhoto/" + email + ".jpg");
 
@@ -192,7 +195,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
                 user.setPassword(password);
 
                 Hawk.put(USER_SESSION, user);
-
+                dialog.dismiss();
                 createUserAuth();
             }
         });
@@ -244,6 +247,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
 
     private void createUserDatabase(User user){
         try{
+            dialog = ProgressDialog.show(CreateAccountActivity.this, "", "Cadastrando, aguarde...", true);
             DatabaseReference mRef = FirebaseUtils.getBaseRef().child("users");
 
             // Firebase gera uma chave automática e ordena por inserção no banco de dados
@@ -251,6 +255,7 @@ public class CreateAccountActivity extends AppCompatActivity implements Validato
             user.setId(key);
             mRef.child(key).setValue(user);
 
+            dialog.dismiss();
             Intent intent = new Intent(CreateAccountActivity.this, ConfirmationActivity.class);
             startActivityForResult(intent, Constants.REQUEST_CODE_CREATE_ACCOUNT);
         } catch(Exception e){

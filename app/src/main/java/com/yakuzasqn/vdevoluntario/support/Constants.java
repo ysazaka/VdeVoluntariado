@@ -40,4 +40,9 @@ public class Constants {
     public static final int CHECK_CHAT_ACTIVITY = 4;
     public static final int MANAGE_PARTICIPANTS_ACTIVITY = 5;
 
+    /* ConfigFragment */
+    public static final int USER_DATA_ACTIVITY = 1;
+    public static final int CREATE_POST_ACTIVITY = 2;
+    public static final int MANAGE_POST_ACTIVITY = 3;
+    public static final int LOGIN_ACTIVITY = 4;
 }

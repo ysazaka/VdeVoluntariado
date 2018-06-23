@@ -35,6 +35,7 @@ import com.mobsandgeeks.saripaar.annotation.Order;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.model.Group;
+import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.util.Utils;
@@ -47,7 +48,6 @@ import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewInstituteActivity extends AppCompatActivity implements Validator.ValidationListener {
-
 
     @Order(1)
     @NotEmpty(message = "Campo obrigatório")
@@ -67,10 +67,11 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
     private EditText niEtSite;
     //    private ImageView niPhoto1, niPhoto2, niPhoto3, niPhoto4;
 
-    private List<String> areasList;
     private String name, adress, site, phone, area;
 
+    private User user;
     private Group group;
+    private String adminId;
 
     private Validator validator;
     private ProgressDialog dialog;
@@ -82,6 +83,8 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_institute);
+
+        user = Hawk.get(Constants.USER_SESSION);
 
         Utils.setBackableToolbar(R.id.ni_toolbar, "Novo grupo", NewInstituteActivity.this);
 
@@ -139,7 +142,7 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
     }
 
     private void setSpinner(){
-        areasList = new ArrayList<>();
+        List<String> areasList = new ArrayList<>();
 
         areasList.clear();
         areasList.add("Área de atuação*");
@@ -257,6 +260,9 @@ public class NewInstituteActivity extends AppCompatActivity implements Validator
                     group.setPhone(phone);
                 if (area != null)
                     group.setArea(area);
+
+                adminId = user.getId();
+                group.setAdminId(adminId);
 
                 if (group != null){
                     dialog.dismiss();

@@ -176,11 +176,15 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
                 post.setTitle(title);
                 post.setDescription(description);
                 post.setType(type);
-                if (type.equals(Constants.OFFER))
+                if (type.equals(Constants.OFFER)){
                     post.setUser(user);
+                    post.setCreatorId(user.getId());
+                }
                 else if (type.equals(Constants.DEMAND)){
-                    if (group != null)
+                    if (group != null){
                         post.setGroup(group);
+                        post.setCreatorId(group.getId());
+                    }
                     else
                         Utils.showToast("Grupo null", CreatePostActivity.this);
                 }

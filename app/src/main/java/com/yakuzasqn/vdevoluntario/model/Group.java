@@ -16,21 +16,23 @@ public class Group implements IUser {
     private List<String> pictures;
 
     // Ids dos usuários pertencentes ao grupo
-    private List<String> participantsId;
+    private List<String> participantIdList;
+    // Ids dos admins
+    private String adminId;
 
     public Group() {}
 
-    public Group(String id, String name, String adress, String phone, String area, String picture, List<String> participantsId) {
+    public Group(String id, String name, String adress, String phone, String area, String picture, List<String> participantIdList) {
         this.id = id;
         this.name = name;
         this.adress = adress;
         this.phone = phone;
         this.area = area;
         this.picture = picture;
-        this.participantsId = participantsId;
+        this.participantIdList = participantIdList;
     }
 
-    public Group(String id, String name, String adress, String site, String phone, String area, String picture, List<String> participantsId) {
+    public Group(String id, String name, String adress, String site, String phone, String area, String picture, List<String> participantIdList) {
         this.id = id;
         this.name = name;
         this.adress = adress;
@@ -38,10 +40,10 @@ public class Group implements IUser {
         this.phone = phone;
         this.area = area;
         this.picture = picture;
-        this.participantsId = participantsId;
+        this.participantIdList = participantIdList;
     }
 
-    public Group(String id, String name, String adress, String site, String phone, String area, List<String> pictures, List<String> participantsId) {
+    public Group(String id, String name, String adress, String site, String phone, String area, List<String> pictures, List<String> participantIdList) {
         this.id = id;
         this.name = name;
         this.adress = adress;
@@ -49,7 +51,7 @@ public class Group implements IUser {
         this.phone = phone;
         this.area = area;
         this.pictures = pictures;
-        this.participantsId = participantsId;
+        this.participantIdList = participantIdList;
     }
 
     @Override
@@ -120,12 +122,19 @@ public class Group implements IUser {
         return pictures;
     }
 
-    public List<String> getParticipantsId() {
-        return participantsId;
+    public List<String> getParticipantIdList() {
+        return participantIdList;
     }
 
-    public void setParticipantsId(List<String> participantsId) {
-        this.participantsId = participantsId;
+    public void setParticipantIdList(List<String> participantIdList) {
+        this.participantIdList = participantIdList;
     }
 
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
 }

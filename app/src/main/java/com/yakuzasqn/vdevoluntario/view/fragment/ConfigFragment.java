@@ -19,6 +19,7 @@ import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.view.activity.CreatePostActivity;
 import com.yakuzasqn.vdevoluntario.view.activity.LoginActivity;
+import com.yakuzasqn.vdevoluntario.view.activity.ManagePostActivity;
 import com.yakuzasqn.vdevoluntario.view.activity.UpdateUserActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -28,14 +29,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ConfigFragment extends Fragment {
 
-    private final int USER_DATA_ACTIVITY = 1;
-    private final int CREATE_POST_ACTIVITY = 2;
-    private final int LOGIN_ACTIVITY = 3;
-
     public ConfigFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +39,7 @@ public class ConfigFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_config, container, false);
 
         LinearLayout llVolunteerData = v.findViewById(R.id.config_ll_volunteer_data);
-        LinearLayout llCreateVolunteerPost = v.findViewById(R.id.config_ll_create_volunteer_post);
+        LinearLayout llManageVolunteerPost = v.findViewById(R.id.config_ll_manage_volunteer_post);
         LinearLayout llSignOut = v.findViewById(R.id.config_ll_sign_out);
         CircleImageView userPhoto = v.findViewById(R.id.config_user_photo);
         TextView userName = v.findViewById(R.id.config_user_name);
@@ -59,14 +55,14 @@ public class ConfigFragment extends Fragment {
         llVolunteerData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openNextActivity(USER_DATA_ACTIVITY);
+                openNextActivity(Constants.USER_DATA_ACTIVITY);
             }
         });
 
-        llCreateVolunteerPost.setOnClickListener(new View.OnClickListener() {
+        llManageVolunteerPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openNextActivity(CREATE_POST_ACTIVITY);
+                openNextActivity(Constants.MANAGE_POST_ACTIVITY);
             }
         });
 
@@ -76,7 +72,7 @@ public class ConfigFragment extends Fragment {
                 final FirebaseAuth mAuth = FirebaseUtils.getFirebaseAuth();
                 mAuth.signOut();
 
-                openNextActivity(LOGIN_ACTIVITY);
+                openNextActivity(Constants.LOGIN_ACTIVITY);
             }
         });
 
@@ -87,15 +83,14 @@ public class ConfigFragment extends Fragment {
         Intent intent = null;
 
         switch (activityName){
-            case USER_DATA_ACTIVITY:
+            case Constants.USER_DATA_ACTIVITY:
                 intent = new Intent(getActivity(), UpdateUserActivity.class);
                 startActivityForResult(intent, Constants.REQUEST_CODE_MAIN);
                 break;
-            case CREATE_POST_ACTIVITY:
-                intent = new Intent(getActivity(), CreatePostActivity.class);
-                intent.putExtra("typeOfPost", Constants.OFFER);
+            case Constants.MANAGE_POST_ACTIVITY:
+                intent = new Intent(getActivity(), ManagePostActivity.class);
                 break;
-            case LOGIN_ACTIVITY:
+            case Constants.LOGIN_ACTIVITY:
                 intent = new Intent(getActivity(), LoginActivity.class);
                 Hawk.delete(Constants.USER_SESSION);
                 getActivity().finish();

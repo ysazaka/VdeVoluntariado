@@ -14,16 +14,21 @@ import android.widget.LinearLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
 import com.yakuzasqn.vdevoluntario.adapter.InstituteAdapter;
+import com.yakuzasqn.vdevoluntario.adapter.MyPostAdapter;
 import com.yakuzasqn.vdevoluntario.model.Group;
+import com.yakuzasqn.vdevoluntario.model.Post;
+import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
 import com.yakuzasqn.vdevoluntario.support.RecyclerItemClickListener;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 import com.yakuzasqn.vdevoluntario.view.activity.InstituteDataActivity;
+import com.yakuzasqn.vdevoluntario.view.activity.ManagePostActivity;
 import com.yakuzasqn.vdevoluntario.view.activity.NewInstituteActivity;
 
 import java.util.ArrayList;
@@ -38,13 +43,9 @@ public class InstituteFragment extends Fragment {
     private InstituteAdapter adapter;
     private RecyclerView.OnItemTouchListener listener;
 
-    private DatabaseReference mRef;
-    private ValueEventListener valueEventListenerGroup;
-
     public InstituteFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,49 +92,35 @@ public class InstituteFragment extends Fragment {
         /***************************************************************
          Recuperar dados do Firebase
          ****************************************************************/
+        User user = Hawk.get(Constants.USER_SESSION);
 
         ProgressDialog dialog = ProgressDialog.show(getActivity(), "", "Carregando grupos, aguarde...", true);
-        mRef = FirebaseUtils.getBaseRef().child("groups");
-        // Cria listener
-        valueEventListenerGroup = new ValueEventListener() {
+        DatabaseReference mRef = FirebaseUtils.getBaseRef().child("groups");
+        Query queryRef = mRef.orderByChild("adminId").equalTo(user.getId());
+        queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Limpar ArrayList de grupos
                 groupList.clear();
 
-                // Recuperar grupos
                 for (DataSnapshot dados: dataSnapshot.getChildren()){
                     Group group = dados.getValue(Group.class);
                     groupList.add(group);
                 }
 
-                adapter = new InstituteAdapter(getContext(), groupList);
-                adapter.notifyDataSetChanged();
+                adapter = new InstituteAdapter(getActivity(), groupList);
                 rvInstitute.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Utils.showToast(R.string.toast_failLoadingData, getActivity());
             }
-        };
+        });
 
-        mRef.addValueEventListener(valueEventListenerGroup);
         dialog.dismiss();
 
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mRef.addValueEventListener(valueEventListenerGroup);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mRef.removeEventListener(valueEventListenerGroup);
     }
 
 }

@@ -67,44 +67,13 @@
 
     </LinearLayout>
 
-    <!-- Create volunteer post -->
+    <!-- Manage volunteer post -->
     <LinearLayout
-        android:id="@+id/config_ll_create_volunteer_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:orientation="vertical"
-        >
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorMountainMist"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_createOffer"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="15dp"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorMountainMist"
-            />
-
-    </LinearLayout>
-
-    <!-- Edit volunteer post -->
-    <LinearLayout
-        android:id="@+id/config_ll_show_volunteer_post"
+        android:id="@+id/config_ll_manage_volunteer_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="50dp"
         >
 
         <View
@@ -117,8 +86,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_showOffer"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginStart="15dp"
             />
 

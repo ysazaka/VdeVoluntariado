@@ -52,6 +52,7 @@ public class CreateInstituteActivity extends AppCompatActivity {
         LinearLayout llAddParticipants = findViewById(R.id.ci_ll_add_participants);
         rvParticipants = findViewById(R.id.rv_participants);
 
+        // Set group data on the screen
         GlideApp.with(getApplicationContext()).load(group.getPicture()).centerCrop().into(ciCivPhoto);
         ciName.setText(group.getName());
         ciAdress.setText(group.getAdress());
@@ -95,7 +96,7 @@ public class CreateInstituteActivity extends AppCompatActivity {
             participantsList = Hawk.get(Constants.CHOSEN_PARTICIPANTS);
             participantsIdList = Hawk.get(Constants.CHOSEN_PARTICIPANTS_ID);
 
-            group.setParticipantsId(participantsIdList);
+            group.setParticipantIdList(participantsIdList);
 
             if (participantsList != null && participantsIdList != null){
                 rvParticipants.setVisibility(View.VISIBLE);

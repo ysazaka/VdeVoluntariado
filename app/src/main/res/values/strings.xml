@@ -29,7 +29,7 @@
     <string name="example_postDescription">Que tal doar suas roupas boas e fazer alguém feliz com a sua doação?</string>
     <string name="example_msg">Olá Ted! Gostaria de contribuir com a sua causa, já que blablabla</string>
     <string name="btn_createOffer">Criar oferta voluntária</string>
-    <string name="btn_showOffer">Editar oferta voluntária</string>
+    <string name="btn_showOffer">Gerenciar ofertas</string>
     <string name="dialog_chooseProfilePhoto">Escolha a sua foto de perfil</string>
     <string name="dialog_chooseProfilePhotoInstitute">Escolha a foto de perfil</string>
     <string name="dialog_chooseArea">Escolha uma área de atuação</string>
@@ -80,4 +80,5 @@
     <string name="toast_created">Cadastrado!</string>
     <string name="toast_needParticipants">Adicione participantes para pertencer ao seu grupo</string>
     <string name="toast_selfpost">Esta é a sua própria postagem</string>
+    <string name="new_post">Nova postagem</string>
 </resources>
