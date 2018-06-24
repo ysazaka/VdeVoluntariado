@@ -1,6 +1,7 @@
 package com.yakuzasqn.vdevoluntario.view.fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,6 +42,7 @@ public class MessageListFragment extends Fragment{
     private RecyclerView.OnItemTouchListener listener;
 
     private TextView tv_no_results;
+    private ProgressDialog dialog;
 
     private DatabaseReference mRef;
     private ValueEventListener valueEventListenerGroup;
@@ -101,6 +103,7 @@ public class MessageListFragment extends Fragment{
     }
 
     private void getChatsFromFirebase(){
+        dialog = ProgressDialog.show(getActivity(), "", "Carregando conversas, aguarde...", true);
         mRef = FirebaseUtils.getBaseRef().child("chats").child(user.getId());
         chatList = new ArrayList<>();
 
@@ -126,6 +129,7 @@ public class MessageListFragment extends Fragment{
 
                     MessageListAdapter adapter = new MessageListAdapter(getContext(), chatList);
                     rv.setAdapter(adapter);
+                    dialog.dismiss();
                 }
             }
 

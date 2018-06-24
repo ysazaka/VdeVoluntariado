@@ -24,6 +24,7 @@ public class Constants {
     public static final int REQUEST_CODE_CREATE_ACCOUNT = 5555;
     public static final int REQUEST_CODE_MAIN = 6666;
     public static final int REQUEST_CODE_USER_DATA = 7777;
+    public static final int REQUEST_CODE_POST_SUCCESS = 8888;
 
     /* Login Activity */
     public static final int MAIN_ACTIVITY = 1;
@@ -42,7 +43,6 @@ public class Constants {
 
     /* ConfigFragment */
     public static final int USER_DATA_ACTIVITY = 1;
-    public static final int CREATE_POST_ACTIVITY = 2;
-    public static final int MANAGE_POST_ACTIVITY = 3;
-    public static final int LOGIN_ACTIVITY = 4;
+    public static final int MANAGE_POST_ACTIVITY = 2;
+    public static final int LOGIN_ACTIVITY = 3;
 }

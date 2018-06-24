@@ -71,10 +71,13 @@ public class CreateInstituteActivity extends AppCompatActivity {
         ciBtnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (participantsList.size() > 0)
-                    createGroupDatabase(group);
-                else
-                    Utils.showToast(R.string.toast_needParticipants, CreateInstituteActivity.this);
+//                if (participantsList != null){
+//                    if (participantsList.size() > 0)
+                        createGroupDatabase(group);
+//                    else
+//                        Utils.showToast(R.string.toast_needParticipants, CreateInstituteActivity.this);
+//                } else
+//                    Utils.showToast(R.string.toast_needParticipants, CreateInstituteActivity.this);
             }
         });
     }

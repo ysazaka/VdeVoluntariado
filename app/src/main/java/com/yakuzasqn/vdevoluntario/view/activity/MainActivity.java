@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser firebaseUser;
-    private DatabaseReference mRef;
 
     private ProgressDialog dialog;
 
@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseUtils.getFirebaseAuth();
 
-        setAuthStateListener();
+        // Commented because of a bug on Firebase that the Current User's display name comes null
+//        setAuthStateListener();
 
         //BottomBar menu
         mBottomBar = findViewById(R.id.bottomBar);
@@ -90,17 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(authStateListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mAuth.removeAuthStateListener(authStateListener);
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        mAuth.addAuthStateListener(authStateListener);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        mAuth.removeAuthStateListener(authStateListener);
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setValueEventListener(){
-        mRef = FirebaseUtils.getUsersRef();
+        DatabaseReference mRef = FirebaseUtils.getUsersRef();
         mRef.orderByChild("email").equalTo(firebaseUser.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

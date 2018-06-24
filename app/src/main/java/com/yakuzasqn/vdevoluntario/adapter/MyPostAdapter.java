@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,8 +38,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyPostViewHolder holder, int position) {
-        Post post = postList.get(position);
+    public void onBindViewHolder(@NonNull final MyPostViewHolder holder, int position) {
+        final Post post = postList.get(position);
         User userFromPost = post.getUser();
         Group groupFromPost = post.getGroup();
 
@@ -49,6 +50,15 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(holder.photo);
         }
+
+        holder.llMyPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                post.setSelected(!post.isSelected());
+                holder.llMyPost.setBackgroundColor(post.isSelected() ? context.getResources().getColor(R.color.colorPrimary)
+                        : context.getResources().getColor(R.color.colorWhite));
+            }
+        });
     }
 
     @Override
@@ -67,12 +77,13 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
     }
 
     static class MyPostViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout llMyPost;
         CircleImageView photo;
         TextView name;
 
         MyPostViewHolder(View itemView){
             super(itemView);
-
+            llMyPost = itemView.findViewById(R.id.ll_my_post);
             photo = itemView.findViewById(R.id.post_civ_photo);
             name = itemView.findViewById(R.id.post_tv_name);
         }

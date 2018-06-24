@@ -11,8 +11,9 @@ public class Post {
     private Group group;
     private String creatorId;
 
-    public Post() {
-    }
+    private boolean isSelected = false;
+
+    public Post() {}
 
     public Post(String id, String urlImage, String title, String description, String type, User user) {
         this.id = id;
@@ -94,5 +95,13 @@ public class Post {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

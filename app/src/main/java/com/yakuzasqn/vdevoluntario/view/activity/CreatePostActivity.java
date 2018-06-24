@@ -208,7 +208,6 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
             dialog.dismiss();
 
             finish();
-
         } catch(Exception e){
             Utils.showToast(getString(R.string.toast_errorCreateUser), CreatePostActivity.this);
             e.printStackTrace();

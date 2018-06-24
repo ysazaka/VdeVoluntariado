@@ -35,7 +35,6 @@ import java.util.List;
 public class ManagePostActivity extends AppCompatActivity {
 
     private List<Post> postList;
-    private RecyclerView.OnItemTouchListener listener;
     private MyPostAdapter adapter;
     private TextView tvNotFound;
 
@@ -52,7 +51,7 @@ public class ManagePostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ManagePostActivity.this, CreatePostActivity.class);
                 intent.putExtra("typeOfPost", Constants.OFFER);
-                startActivity(intent);
+                startActivityForResult(intent, Constants.REQUEST_CODE_POST_SUCCESS);
             }
         });
 
@@ -68,17 +67,6 @@ public class ManagePostActivity extends AppCompatActivity {
 
         rvMyPost.setLayoutManager(mLayoutManager);
 
-        if (listener != null){
-            rvMyPost.removeOnItemTouchListener(listener);
-        }
-        listener = new RecyclerItemClickListener(ManagePostActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-        });
-
-        rvMyPost.addOnItemTouchListener(listener);
 
         /***************************************************************
          Recuperar dados do Firebase
@@ -117,6 +105,14 @@ public class ManagePostActivity extends AppCompatActivity {
         });
 
         dialog.dismiss();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Reload to update the data
+        if (requestCode == Constants.REQUEST_CODE_POST_SUCCESS){
+
+        }
     }
 
     @Override

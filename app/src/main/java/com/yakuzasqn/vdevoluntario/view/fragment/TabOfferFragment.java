@@ -1,5 +1,6 @@
 package com.yakuzasqn.vdevoluntario.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ public class TabOfferFragment extends Fragment {
     private RecyclerView.OnItemTouchListener listener;
     private TextView tvNotFound;
 
+    private ProgressDialog dialog;
     private User actualUser;
 
     public TabOfferFragment() {
@@ -101,7 +103,7 @@ public class TabOfferFragment extends Fragment {
         /***************************************************************
          Recuperar dados do Firebase
          ****************************************************************/
-
+        dialog = ProgressDialog.show(getActivity(), "", "Carregando postagens, aguarde...", true);
         DatabaseReference mRef = FirebaseUtils.getBaseRef().child("posts");
         Query queryRef = mRef.orderByChild("type").equalTo(Constants.OFFER);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -117,6 +119,7 @@ public class TabOfferFragment extends Fragment {
                 adapter = new PostAdapter(getContext(), postList);
                 rvOffer.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                dialog.dismiss();
 
                 if (postList.size() > 0) {
                     rvOffer.setVisibility(View.VISIBLE);
