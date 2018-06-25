@@ -3,7 +3,6 @@ package com.yakuzasqn.vdevoluntario.view.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -30,8 +29,8 @@ public class InstituteDataActivity extends AppCompatActivity {
         Utils.setBackableToolbar(R.id.id_toolbar, "", InstituteDataActivity.this);
 
         LinearLayout llCheckInstitute = findViewById(R.id.id_check_institute);
-        LinearLayout llCreateVolunteerOffer = findViewById(R.id.id_create_volunteer_offer);
-        LinearLayout llCreateInstituteDemand = findViewById(R.id.id_create_institute_demand);
+        LinearLayout llManageDemand = findViewById(R.id.id_ll_manage_group_demand);
+        LinearLayout llManageOffer = findViewById(R.id.id_ll_manage_group_offer);
         LinearLayout llCheckChat = findViewById(R.id.id_check_chat);
         LinearLayout llManageParticipants = findViewById(R.id.id_manage_participants);
         CircleImageView civPhoto = findViewById(R.id.id_photo);
@@ -47,24 +46,24 @@ public class InstituteDataActivity extends AppCompatActivity {
             }
         });
 
-        llCreateVolunteerOffer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openNextActivity(Constants.CREATE_POST_OFFER_ACTIVITY);
-            }
-        });
-
-        llCreateInstituteDemand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openNextActivity(Constants.CREATE_POST_DEMAND_ACTIVITY);
-            }
-        });
-
         llCheckChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openNextActivity(Constants.CHECK_CHAT_ACTIVITY);
+            }
+        });
+
+        llManageDemand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNextActivity(Constants.MANAGE_GROUP_DEMAND_ACTIVITY);
+            }
+        });
+
+        llManageOffer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNextActivity(Constants.MANAGE_GROUP_OFFER_ACTIVITY);
             }
         });
 
@@ -94,19 +93,25 @@ public class InstituteDataActivity extends AppCompatActivity {
             case Constants.CHECK_INSTITUTE_ACTIVITY:
                 intent = new Intent(InstituteDataActivity.this, CheckInstituteActivity.class);
                 break;
-            case Constants.CREATE_POST_OFFER_ACTIVITY:
-                intent = new Intent(InstituteDataActivity.this, CreatePostActivity.class);
-                intent.putExtra("typeOfPost", Constants.OFFER);
-                break;
-            case Constants.CREATE_POST_DEMAND_ACTIVITY:
-                intent = new Intent(InstituteDataActivity.this, CreatePostActivity.class);
-                intent.putExtra("typeOfPost", Constants.DEMAND);
-                break;
+//            case Constants.CREATE_POST_OFFER_ACTIVITY:
+//                intent = new Intent(InstituteDataActivity.this, CreatePostActivity.class);
+//                intent.putExtra("typeOfPost", Constants.OFFER);
+//                break;
+//            case Constants.CREATE_POST_DEMAND_ACTIVITY:
+//                intent = new Intent(InstituteDataActivity.this, CreatePostActivity.class);
+//                intent.putExtra("typeOfPost", Constants.DEMAND);
+//                break;
             case Constants.CHECK_CHAT_ACTIVITY:
                 intent = new Intent(InstituteDataActivity.this, CheckChatActivity.class);
                 break;
             case Constants.MANAGE_PARTICIPANTS_ACTIVITY:
                 intent = new Intent(InstituteDataActivity.this, ManageParticipantsActivity.class);
+                break;
+            case Constants.MANAGE_GROUP_DEMAND_ACTIVITY:
+                intent = new Intent(InstituteDataActivity.this, ManageGroupDemandActivity.class);
+                break;
+            case Constants.MANAGE_GROUP_OFFER_ACTIVITY:
+                intent = new Intent(InstituteDataActivity.this, ManageGroupOfferActivity.class);
                 break;
         }
         startActivity(intent);

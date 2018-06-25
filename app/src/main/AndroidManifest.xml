@@ -66,7 +66,10 @@
         <activity android:name=".view.activity.CheckChatActivity" />
         <activity android:name=".view.activity.ManageParticipantsActivity" />
         <activity android:name=".view.activity.ChooseParticipantsActivity" />
-        <activity android:name=".view.activity.ManagePostActivity"></activity>
+        <activity android:name=".view.activity.ManagePostActivity" />
+        <activity android:name=".view.activity.UpdatePostActivity" />
+        <activity android:name=".view.activity.ManageGroupOfferActivity" />
+        <activity android:name=".view.activity.ManageGroupDemandActivity"></activity>
     </application>
 
 </manifest>

@@ -29,7 +29,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
-import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
@@ -58,7 +57,6 @@ public class UpdateUserActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user);
-
         Utils.setBackableToolbar(R.id.up_toolbar, "Atualizar dados", UpdateUserActivity.this);
 
         etNewName = findViewById(R.id.up_et_new_name);
@@ -123,23 +121,7 @@ public class UpdateUserActivity extends AppCompatActivity{
                 // After update, finish the activity
                 if (civUserPhoto.isSelected() || !auxName.equals(user.getName()) || !auxPassword.equals(user.getPassword())){
                     dialog = ProgressDialog.show(UpdateUserActivity.this, "", "Atualizando dados, aguarde...", true);
-                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            Utils.showToast(R.string.toast_updated, UpdateUserActivity.this);
-                            finish();
-                        }
-                    });
-
-                    new java.util.Timer().schedule(
-                            new java.util.TimerTask() {
-                                @Override
-                                public void run() {
-                                    if( dialog != null ) dialog.dismiss();
-                                }
-                            },
-                            2500
-                    );
+                    updateUserDatabase(user);
                 }
             }
         });
@@ -248,6 +230,22 @@ public class UpdateUserActivity extends AppCompatActivity{
                 Hawk.put(USER_SESSION, user);
             }
         });
-
     }
+
+    private void updateUserDatabase(User user){
+        try{
+            dialog = ProgressDialog.show(UpdateUserActivity.this, "", "Atualizando, aguarde...", true);
+            DatabaseReference mRef = FirebaseUtils.getBaseRef().child("users");
+
+            mRef.child(user.getId()).setValue(user);
+
+            dialog.dismiss();
+            Utils.showToast(R.string.toast_updated, UpdateUserActivity.this);
+            finish();
+        } catch(Exception e){
+            Utils.showToast(getString(R.string.toast_errorCreateUser), UpdateUserActivity.this);
+            e.printStackTrace();
+        }
+    }
+
 }

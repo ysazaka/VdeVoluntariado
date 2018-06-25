@@ -123,6 +123,7 @@ public class MessageListFragment extends Fragment{
                 if (chatList.size() == 0){
                     rv.setVisibility(View.GONE);
                     tv_no_results.setVisibility(View.VISIBLE);
+                    dialog.dismiss();
                 } else {
                     rv.setVisibility(View.VISIBLE);
                     tv_no_results.setVisibility(View.GONE);
@@ -135,6 +136,7 @@ public class MessageListFragment extends Fragment{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                dialog.dismiss();
                 Utils.showToast(R.string.toast_failLoadingData, getActivity());
             }
         };

@@ -8,6 +8,7 @@ public class Constants {
     public static final String CHOSEN_GROUP_FOR_CHAT = "CHOSEN_GROUP_FOR_CHAT";
     public static final String CHOSEN_PARTICIPANTS = "CHOSEN_PARTICIPANTS";
     public static final String CHOSEN_PARTICIPANTS_ID = "CHOSEN_PARTICIPANTS_ID";
+    public static final String CHOSEN_POST = "CHOSEN_POST";
     public static final String OFFER = "OFFER";
     public static final String DEMAND = "DEMAND";
 
@@ -40,6 +41,8 @@ public class Constants {
     public static final int CREATE_POST_DEMAND_ACTIVITY = 3;
     public static final int CHECK_CHAT_ACTIVITY = 4;
     public static final int MANAGE_PARTICIPANTS_ACTIVITY = 5;
+    public static final int MANAGE_GROUP_DEMAND_ACTIVITY = 6;
+    public static final int MANAGE_GROUP_OFFER_ACTIVITY = 7;
 
     /* ConfigFragment */
     public static final int USER_DATA_ACTIVITY = 1;

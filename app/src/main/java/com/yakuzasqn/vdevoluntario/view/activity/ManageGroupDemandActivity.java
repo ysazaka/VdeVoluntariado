@@ -18,21 +18,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 import com.yakuzasqn.vdevoluntario.R;
-import com.yakuzasqn.vdevoluntario.adapter.InstituteAdapter;
 import com.yakuzasqn.vdevoluntario.adapter.MyPostAdapter;
-import com.yakuzasqn.vdevoluntario.adapter.PostAdapter;
 import com.yakuzasqn.vdevoluntario.model.Group;
 import com.yakuzasqn.vdevoluntario.model.Post;
 import com.yakuzasqn.vdevoluntario.model.User;
 import com.yakuzasqn.vdevoluntario.support.Constants;
 import com.yakuzasqn.vdevoluntario.support.FirebaseUtils;
-import com.yakuzasqn.vdevoluntario.support.RecyclerItemClickListener;
 import com.yakuzasqn.vdevoluntario.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagePostActivity extends AppCompatActivity {
+public class ManageGroupDemandActivity extends AppCompatActivity {
 
     private List<Post> postList;
     private MyPostAdapter adapter;
@@ -42,17 +39,16 @@ public class ManagePostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_post);
+        setContentView(R.layout.activity_manage_group_demand);
 
-        Utils.setBackableToolbar(R.id.mpo_toolbar, "Gerenciar ofertas", ManagePostActivity.this);
+        Utils.setBackableToolbar(R.id.mgd_toolbar, "Gerenciar pedidos", ManageGroupDemandActivity.this);
 
-        LinearLayout llNewPost = findViewById(R.id.ll_new_post);
-        llNewPost.setOnClickListener(new View.OnClickListener() {
+        LinearLayout llNewDemand = findViewById(R.id.mgd_ll_new_demand);
+        llNewDemand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Hawk.delete(Constants.CHOSEN_GROUP);
-                Intent intent = new Intent(ManagePostActivity.this, CreatePostActivity.class);
-                intent.putExtra("typeOfPost", Constants.OFFER);
+                Intent intent = new Intent(ManageGroupDemandActivity.this, CreatePostActivity.class);
+                intent.putExtra("typeOfPost", Constants.DEMAND);
                 startActivityForResult(intent, Constants.REQUEST_CODE_POST_SUCCESS);
             }
         });
@@ -61,11 +57,11 @@ public class ManagePostActivity extends AppCompatActivity {
          Montagem do RecyclerView e do Adapter
          ****************************************************************/
 
-        tvNotFound = findViewById(R.id.tv_not_found_mp);
+        tvNotFound = findViewById(R.id.mgd_tv_not_found_mp);
         postList = new ArrayList<>();
 
-        final RecyclerView rvMyPost = findViewById(R.id.rv_my_post);
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(ManagePostActivity.this);
+        final RecyclerView rvMyPost = findViewById(R.id.rv_mgd_post);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(ManageGroupDemandActivity.this);
 
         rvMyPost.setLayoutManager(mLayoutManager);
 
@@ -73,22 +69,23 @@ public class ManagePostActivity extends AppCompatActivity {
         /***************************************************************
          Recuperar dados do Firebase
          ****************************************************************/
-        User user = Hawk.get(Constants.USER_SESSION);
+        Group group = Hawk.get(Constants.CHOSEN_GROUP);
 
-        dialog = ProgressDialog.show(ManagePostActivity.this, "", "Carregando postagens, aguarde...", true);
+        dialog = ProgressDialog.show(ManageGroupDemandActivity.this, "", "Carregando postagens, aguarde...", true);
         DatabaseReference mRef = FirebaseUtils.getBaseRef().child("posts");
-        Query queryRef = mRef.orderByChild("creatorId").equalTo(user.getId());
+        Query queryRef = mRef.orderByChild("creatorId").equalTo(group.getId());
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 postList.clear();
 
-                for (DataSnapshot dados: dataSnapshot.getChildren()){
+                for (DataSnapshot dados : dataSnapshot.getChildren()) {
                     Post post = dados.getValue(Post.class);
-                    postList.add(post);
+                    if (post.getType().equals("DEMAND"))
+                        postList.add(post);
                 }
 
-                adapter = new MyPostAdapter(ManagePostActivity.this, postList);
+                adapter = new MyPostAdapter(ManageGroupDemandActivity.this, postList);
                 rvMyPost.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 if (postList.size() > 0) {
@@ -105,10 +102,9 @@ public class ManagePostActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 dialog.dismiss();
-                Utils.showToast(R.string.toast_failLoadingData, ManagePostActivity.this);
+                Utils.showToast(R.string.toast_failLoadingData, ManageGroupDemandActivity.this);
             }
         });
-
     }
 
     @Override
@@ -116,7 +112,7 @@ public class ManagePostActivity extends AppCompatActivity {
         // Reload to update the data
         if (requestCode == Constants.REQUEST_CODE_POST_SUCCESS){
             finish();
-            startActivity(new Intent(ManagePostActivity.this, ManagePostActivity.class));
+            startActivity(new Intent(ManageGroupDemandActivity.this, ManageGroupDemandActivity.class));
         }
     }
 
@@ -129,4 +125,5 @@ public class ManagePostActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -76,81 +76,12 @@
                 android:background="@color/colorMountainMist"
                 />
 
-            <!-- Create volunteer offer -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorMountainMist"
-                android:layout_marginTop="20dp"
-                />
-
-            <LinearLayout
-                android:id="@+id/id_create_volunteer_offer"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="@string/btn_createVolunteerOffer"
-                    android:textColor="@color/colorBlack"
-                    android:minLines="1"
-                    android:maxLines="1"
-                    android:layout_marginStart="15dp"
-                    />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorMountainMist"
-                />
-
-            <!-- Create demand for the volunteers -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorMountainMist"
-                />
-
-            <LinearLayout
-                android:id="@+id/id_create_institute_demand"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="@string/btn_createDemand"
-                    android:textColor="@color/colorBlack"
-                    android:minLines="1"
-                    android:maxLines="1"
-                    android:layout_marginStart="15dp"
-                    />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorMountainMist"
-                />
-
             <!-- Check chat -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorMountainMist"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 />
 
             <LinearLayout
@@ -180,12 +111,79 @@
                 android:background="@color/colorMountainMist"
                 />
 
+            <!-- Manage demand -->
+            <LinearLayout
+                android:id="@+id/id_ll_manage_group_demand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorMountainMist"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_manageDemand"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="15dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorMountainMist"
+                    />
+
+            </LinearLayout>
+
+            <!-- Manage offer -->
+            <LinearLayout
+                android:id="@+id/id_ll_manage_group_offer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorMountainMist"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_manageOffer"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="15dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorMountainMist"
+                    />
+
+            </LinearLayout>
+
             <!-- Manage participants -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorMountainMist"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 />
 
             <LinearLayout

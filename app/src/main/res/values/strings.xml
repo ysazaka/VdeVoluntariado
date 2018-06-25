@@ -84,4 +84,10 @@
     <string name="data_notFound">Nenhum dado encontrado</string>
     <string name="group_notFound">Nenhum grupo encontrado.</string>
     <string name="post_notFound">Nenhuma postagem encontrada.</string>
+    <string name="menu_update">Alterar</string>
+    <string name="menu_delete">Excluir</string>
+    <string name="btn_manageDemand">Gerenciar pedidos</string>
+    <string name="btn_manageOffer">Gerenciar ofertas</string>
+    <string name="new_demand">Novo pedido</string>
+    <string name="new_offer">Nova oferta</string>
 </resources>

@@ -2,7 +2,6 @@ package com.yakuzasqn.vdevoluntario.view.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +40,7 @@ import com.yakuzasqn.vdevoluntario.util.Utils;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class CreatePostActivity extends AppCompatActivity implements Validator.ValidationListener {
+public class UpdatePostActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     @Order(1)
     @NotEmpty(message = "Campo obrigatório")
@@ -54,11 +52,9 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
 
     private ImageView postPhoto;
 
-    private String title, description, type;
+    private String title, description;
 
     private Post post;
-    private User user;
-    private Group group;
 
     private Validator validator;
     private ProgressDialog dialog;
@@ -66,19 +62,20 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_post);
+        setContentView(R.layout.activity_update_post);
 
-        Utils.setBackableToolbar(R.id.cp_toolbar, "", CreatePostActivity.this);
+        Utils.setBackableToolbar(R.id.upo_toolbar, "", UpdatePostActivity.this);
 
-        postPhoto = findViewById(R.id.cp_post_photo);
-        etPostTitle = findViewById(R.id.cp_post_title);
-        etPostDescription = findViewById(R.id.cp_post_description);
-        Button btnPublish = findViewById(R.id.cp_publish);
+        postPhoto = findViewById(R.id.upo_post_photo);
+        etPostTitle = findViewById(R.id.upo_post_title);
+        etPostDescription = findViewById(R.id.upo_post_description);
+        Button btnPublish = findViewById(R.id.upo_publish);
 
-        user = Hawk.get(Constants.USER_SESSION);
-        group = Hawk.get(Constants.CHOSEN_GROUP);
+        post = Hawk.get(Constants.CHOSEN_POST);
 
-        type = getIntent().getStringExtra("typeOfPost");
+        GlideApp.with(getApplicationContext()).load(post.getUrlImage()).centerCrop().into(postPhoto);
+        etPostTitle.setText(post.getTitle());
+        etPostDescription.setText(post.getDescription());
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -100,7 +97,6 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
         });
     }
 
-    // Corrigir comportamento da seta de voltar - Toolbar customizada
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -113,17 +109,12 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
 
     @Override
     public void onValidationSucceeded() {
-        // Verificação para ver se o usuário escolheu uma foto de perfil
-        Drawable icCamera = getResources().getDrawable(R.drawable.ic_action_camera);
-        Bitmap bitPhoto = ((BitmapDrawable) postPhoto.getDrawable()).getBitmap();
-        Bitmap bitPhotoDefault = ((BitmapDrawable) icCamera).getBitmap();
-
-        if (bitPhoto != bitPhotoDefault){
-            post = new Post();
-
+        if (postPhoto.isSelected()){
             uploadPostPhoto();
         } else {
-            Utils.showDialogCustomMessage(R.string.dialog_chooseProfilePhoto, CreatePostActivity.this);
+            post.setTitle(title);
+            post.setDescription(description);
+            updatePostDatabase(post);
         }
     }
 
@@ -144,7 +135,7 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
     }
 
     private void uploadPostPhoto(){
-        dialog = ProgressDialog.show(CreatePostActivity.this, "", "Fazendo upload da foto, aguarde...", true);
+        dialog = ProgressDialog.show(UpdatePostActivity.this, "", "Fazendo upload da foto, aguarde...", true);
         String timestamp = Utils.getCurrentTimestamp();
 
         StorageReference mStoreRef = FirebaseUtils.getFirebaseStorageReference()
@@ -164,7 +155,7 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Utils.showToast(e.getMessage(), CreatePostActivity.this);
+                Utils.showToast(e.getMessage(), UpdatePostActivity.this);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -175,46 +166,26 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
                 post.setUrlImage(downloadUrl.toString());
                 post.setTitle(title);
                 post.setDescription(description);
-                post.setType(type);
-                if (type.equals(Constants.OFFER)){
-                    if (group != null){
-                        post.setGroup(group);
-                        post.setCreatorId(group.getId());
-                    } else {
-                        post.setUser(user);
-                        post.setCreatorId(user.getId());
-                    }
-                }
-                else if (type.equals(Constants.DEMAND)){
-                    if (group != null){
-                        post.setGroup(group);
-                        post.setCreatorId(group.getId());
-                    }
-                    else
-                        Utils.showToast("Grupo null", CreatePostActivity.this);
-                }
 
-                createPostDatabase(post);
+                updatePostDatabase(post);
             }
         });
     }
 
-    private void createPostDatabase(Post post){
+    private void updatePostDatabase(Post post){
         try{
-            dialog = ProgressDialog.show(CreatePostActivity.this, "", "Cadastrando postagem, aguarde...", true);
+            dialog = ProgressDialog.show(UpdatePostActivity.this, "", "Atualizando postagem, aguarde...", true);
 
             DatabaseReference mRef = FirebaseUtils.getBaseRef().child("posts");
 
-            String key = mRef.push().getKey();
-            post.setId(key);
-            mRef.child(key).setValue(post);
+            mRef.child(post.getId()).setValue(post);
 
-            Utils.showToast(R.string.toast_posted, CreatePostActivity.this);
+            Utils.showToast(R.string.toast_updated, UpdatePostActivity.this);
             dialog.dismiss();
 
             finish();
         } catch(Exception e){
-            Utils.showToast(getString(R.string.toast_errorCreateUser), CreatePostActivity.this);
+            Utils.showToast(getString(R.string.toast_errorCreateUser), UpdatePostActivity.this);
             e.printStackTrace();
         }
     }
@@ -230,6 +201,7 @@ public class CreatePostActivity extends AppCompatActivity implements Validator.V
         if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == Activity.RESULT_OK){
             Uri selectedImage = data.getData();
             GlideApp.with(getApplicationContext()).load(selectedImage).centerCrop().into(postPhoto);
+            postPhoto.setSelected(true);
         }
     }
 }
