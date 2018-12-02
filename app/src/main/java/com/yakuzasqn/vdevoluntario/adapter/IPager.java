@@ -1,4 +1,4 @@
-package com.yakuzasqn.vdevoluntario.model;
+package com.yakuzasqn.vdevoluntario.adapter;
 
 import android.support.v4.app.Fragment;
 
